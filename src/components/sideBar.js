@@ -1,16 +1,16 @@
 import Accordion from "react-bootstrap/Accordion";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-
+import { BrowserRouter as Router, Link, NavLink } from "react-router-dom";
+import logo from "../assets/images/AdminLTELogo.webp";
 function SideBar() {
   return (
     <div className="side-bar">
       <div className="side-bar-header">
         <div className="side-bar-header-title d-flex">
-          <img src="img/AdminLTELogo.webp" alt="" />
+          <img src={logo} alt="" />
           <p className="hidenText">AdminLTE 3</p>
         </div>
         <div className="side-bar-header-infor d-flex">
-          <img src="img/AdminLTELogo.webp" alt="" />
+          <img src={logo} alt="" />
           <p className="hidenText">Pham Duy Dev Web</p>
         </div>
       </div>
@@ -33,16 +33,19 @@ function SideBar() {
         <div className="Options">
           <Accordion className="mt-3" defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Dashboard</Accordion.Header>
+              <Accordion.Header>
+                {" "}
+                <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+              </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub0">
                   <li>
-                    <Link to="/">
+                    <NavLink to="/">
                       <p className="optionClick bgOpClick">
                         <i className="far fa-circle"></i>
                         <span className="hidenText"> Dashboard v1</span>
                       </p>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <p>
@@ -60,16 +63,19 @@ function SideBar() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Forms</Accordion.Header>
+              <Accordion.Header>
+                {" "}
+                <i class="fab fa-wpforms"></i>&nbsp; Forms
+              </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub1">
                   <li>
-                    <Link to="/form">
+                    <NavLink to="/form" end>
                       <p className="optionClick">
                         <i className="far fa-circle"></i>
                         <span className="hidenText"> General Form</span>
                       </p>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <p>
@@ -87,16 +93,18 @@ function SideBar() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Table</Accordion.Header>
+              <Accordion.Header>
+                <i class="fas fa-table"></i>&nbsp;Table
+              </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub2">
                   <li>
-                    <Link to="/table">
+                    <NavLink to="/table" end>
                       <p className="optionClick">
                         <i className="far fa-circle"></i>
                         <span className="hidenText"> Simple Tables</span>
                       </p>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <p>
@@ -114,16 +122,18 @@ function SideBar() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="3">
-              <Accordion.Header>User</Accordion.Header>
+              <Accordion.Header>
+                <i class="fas fa-user-friends"></i>&nbsp;User
+              </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub3">
                   <li>
-                    <Link to="/users">
+                    <NavLink to="/users" end>
                       <p>
                         <i className="far fa-circle"></i>
                         <span className="hidenText"> User v1</span>
                       </p>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <p>
@@ -141,16 +151,18 @@ function SideBar() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="4">
-              <Accordion.Header>Products</Accordion.Header>
+              <Accordion.Header>
+                <i class="fab fa-product-hunt"></i>&nbsp;Products
+              </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub4">
                   <li>
-                    <Link to="/products">
+                    <NavLink to="/products" end>
                       <p>
                         <i className="far fa-circle"></i>
                         <span className="hidenText"> Products v1</span>
                       </p>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <p>

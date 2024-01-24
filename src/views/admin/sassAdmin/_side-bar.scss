@@ -74,12 +74,17 @@
             .menu-sub{
                 margin-left: -3rem;
                 li{
-                    
+                    a{
+                        color: white;
+                    }
+                    a.active{
+                        background-color: rgb(240, 57, 57) !important ;
+                        color: red;
+                    }
                     p{
                         width: 13.8rem;
                         cursor: pointer;
                         border-radius: 5px;
-                        color: rgb(225, 222, 222);
                         padding: 0.6rem;
                         font-size: 1rem;
                         margin-bottom: 0.5rem;
@@ -113,6 +118,7 @@
 .hidenTextActive{
     display: none;
 }
+
 
 @keyframes identifier1 {
     from{left: -170px;}

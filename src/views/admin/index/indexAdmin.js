@@ -4,12 +4,13 @@ import SideBar from "../../../components/sideBar";
 import Footer from "../../../components/footer";
 import Dashboard from "./Dashborad/dashbroad";
 import Navigation from "../../../components/navigation";
+import logo from '../../../assets/images/AdminLTELogo.webp'
 function IndexAdmin() {
   return (
       <>
-      {/* <div className="open-start">
-        <img src="img/AdminLTELogo.webp" alt="" />
-      </div> */}
+      <div className="open-start">
+        <img src={logo} alt="" />
+      </div>
       <SideBar />
       <div className="box__admin">
         <Navigation />

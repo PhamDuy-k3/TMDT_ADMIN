@@ -120,7 +120,7 @@ function AddUser() {
     <>
       {isUpdate && <UpdateUser setIsUpdate={setIsUpdate} />}
 
-      {/* <Row>
+      <Row>
         <Col>
           <Form.Group>
             <Form.Control
@@ -191,7 +191,7 @@ function AddUser() {
           </thead>
           <tbody>{users}</tbody>
         </Table>
-      </div> */}
+      </div>
     </>
   );
 }

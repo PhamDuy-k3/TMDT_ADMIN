@@ -47,7 +47,7 @@ function AddProduct() {
 
   return (
     <>
-      {/* <Row>
+      <Row>
         <Col>
           <Form.Group>
             <Form.Control
@@ -80,7 +80,7 @@ function AddProduct() {
           <Button>ADD</Button>
         </Col>
       </Row>
-      <div style={{overflow:"scroll" , height:'95rem'}}>
+      <div style={{ overflow: "scroll", height: "95rem" }}>
         <Table
           className="mt-4"
           style={{ textAlign: "center" }}
@@ -102,7 +102,7 @@ function AddProduct() {
           </thead>
           <tbody>{users}</tbody>
         </Table>
-      </div> */}
+      </div>
     </>
   );
 }

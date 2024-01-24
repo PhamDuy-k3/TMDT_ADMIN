@@ -87,7 +87,7 @@ function User() {
               </Form.Group>
             </Col>
             <Col>
-              <Button>ADD</Button>
+              <Button>Tìm Kiếm</Button>
             </Col>
           </Row>
           <div style={{ overflow: "scroll", height: "95rem" }}>
