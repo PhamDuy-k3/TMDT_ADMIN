@@ -8,6 +8,7 @@ export function Index() {
   const {
     register,
     handleSubmit,
+    watch,//watch('phone') lây đc gia trị value phone
     formState: { errors },
   } = useForm();
   const [cookie, setCookie] = useCookies();
@@ -18,8 +19,8 @@ export function Index() {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+       'Accept': "application/json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -31,7 +32,7 @@ export function Index() {
           });
           navigate("/");
         }
-        console.log(res)
+        console.log(res);
       });
   };
 
@@ -46,20 +47,22 @@ export function Index() {
             type="text"
             className="form-control"
             id="inputPhone"
-            {...register("phoneNumber", {
-              required: "Số điện thoại không được để trống",
+            {...register("phone", {
+              required: "Vui lòng điền giá trị!!!",
               maxLength: {
                 value: 11,
                 message: "Số điện thoại không được dài hơn 11 kí tự",
               },
               minLength: {
-                value: 11,
+                value: 10,
                 message: "Số điện thoại không được nho hơn 10 kí tự",
               },
             })}
           />
-          {errors.phoneNumber && (
-            <span style={{ color: "red" }}>{errors.phoneNumber.message}</span>
+          {errors.phone && (
+            <span style={{ color: "red", fontWeight: "600" }}>
+              {errors.phone.message}
+            </span>
           )}
         </div>
         <div className="mb-3">
@@ -70,10 +73,10 @@ export function Index() {
             type="password"
             className="form-control"
             id="inputPassword"
-            {...register("password", { required: true, minLength: 10 })}
+            {...register("password", { required: true, minLength: 8 })}
           />
           {errors.password && (
-            <span style={{ color: "red" }}>
+            <span style={{ color: "red", fontWeight: "600" }}>
               {errors.password.type === "required"
                 ? "Vui lòng điền giá trị !!!"
                 : "Mật khẩu ít nhất 10 kí tự"}
