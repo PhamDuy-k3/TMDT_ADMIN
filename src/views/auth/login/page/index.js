@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import moment from "moment/moment";
@@ -8,10 +7,10 @@ export function Index() {
   const {
     register,
     handleSubmit,
-    watch,//watch('phone') lây đc gia trị value phone
+    watch, //watch('phone') lây đc gia trị value phone
     formState: { errors },
   } = useForm();
-  const [cookie, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies();
   const navigate = useNavigate();
 
   const login = (data) => {
@@ -19,7 +18,7 @@ export function Index() {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-       'Accept': "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     })

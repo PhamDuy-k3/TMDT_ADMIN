@@ -35,7 +35,7 @@ function SideBar() {
             <Accordion.Item eventKey="0">
               <Accordion.Header>
                 {" "}
-                <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub0">
@@ -65,7 +65,7 @@ function SideBar() {
             <Accordion.Item eventKey="1">
               <Accordion.Header>
                 {" "}
-                <i class="fab fa-wpforms"></i>&nbsp; Forms
+                <i className="fab fa-wpforms"></i>&nbsp; Forms
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub1">
@@ -94,7 +94,7 @@ function SideBar() {
             </Accordion.Item>
             <Accordion.Item eventKey="2">
               <Accordion.Header>
-                <i class="fas fa-table"></i>&nbsp;Table
+                <i className="fas fa-table"></i>&nbsp;Table
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub2">
@@ -123,7 +123,7 @@ function SideBar() {
             </Accordion.Item>
             <Accordion.Item eventKey="3">
               <Accordion.Header>
-                <i class="fas fa-user-friends"></i>&nbsp;User
+                <i className="fas fa-user-friends"></i>&nbsp;User
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub3">
@@ -152,7 +152,7 @@ function SideBar() {
             </Accordion.Item>
             <Accordion.Item eventKey="4">
               <Accordion.Header>
-                <i class="fab fa-product-hunt"></i>&nbsp;Products
+                <i className="fab fa-product-hunt"></i>&nbsp;Products
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub4">

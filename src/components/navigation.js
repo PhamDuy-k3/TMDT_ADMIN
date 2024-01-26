@@ -1,9 +1,17 @@
+import { useCookies } from "react-cookie";
 function Navigation() {
+  const [cookies, setCookie, removeCookies] = useCookies();
+
+  const logout = (e) => {
+    e.preventDefault();
+    removeCookies("user_token");
+    window.location.href = "http://localhost:3000/auth/login";
+  };
   return (
     <nav className="d-flex">
       <ul className="navbar-one d-flex">
         <li>
-          <i className="fas fa-bars" onClick="hiddenSidebar()"></i>
+          <i className="fas fa-bars" ></i>
         </li>
         <div className="display-hidden d-flex">
           <p>Home</p>
@@ -20,7 +28,7 @@ function Navigation() {
                   type="text"
                   id="search_nav"
                   placeholder="Search"
-                  oninput="keyBroad()"
+                
                 />
                 <i className="fas fa-times clear-search"></i>
               </label>
@@ -106,6 +114,11 @@ function Navigation() {
         </li>
         <li>
           <i className="fas fa-th-list"></i>
+        </li>
+        <li>
+          <a className="" href="/" onClick={(e) => logout(e)}>
+            Đăng xuất
+          </a>
         </li>
       </ul>
     </nav>
