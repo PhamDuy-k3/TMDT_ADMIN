@@ -70,9 +70,9 @@
         .accordion-body {
             background-color: #343A40;
             color: white !important;
-            height: 11rem;
+            height: auto !important;
             .menu-sub{
-                margin-left: -3rem;
+                margin-left: -2.6rem;
                 li{
                     a{
                         color: white;

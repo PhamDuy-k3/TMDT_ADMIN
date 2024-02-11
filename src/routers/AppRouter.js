@@ -12,6 +12,8 @@ import Products from "../views/admin/index/products/products";
 import IndexAdmin from "../views/admin/index/indexAdmin";
 import { Index as AuthLayout } from "../views/auth";
 import { Index as LoginPage } from "../views/auth/login/page";
+import AddUser from "../views/admin/index/user/addUser";
+import UpdateUser from "../views/admin/index/user/updateUser";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +48,14 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <User />,
+          },
+          {
+            path: "/users/create",
+            element: <AddUser />,
+          },
+          {
+            path: "/users/update",
+            element: <UpdateUser />,
           },
         ],
       },

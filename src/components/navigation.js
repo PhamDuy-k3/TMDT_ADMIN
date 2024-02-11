@@ -1,12 +1,15 @@
 import { useCookies } from "react-cookie";
+
 function Navigation() {
   const [cookies, setCookie, removeCookies] = useCookies();
 
   const logout = (e) => {
     e.preventDefault();
     removeCookies("user_token");
+    // console.log('1');
     window.location.href = "http://localhost:3000/auth/login";
   };
+
   return (
     <nav className="d-flex">
       <ul className="navbar-one d-flex">

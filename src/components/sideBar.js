@@ -118,6 +118,24 @@ function SideBar() {
                       <span className="hidenText"> Dashboard v3</span>
                     </p>
                   </li>
+                  <li>
+                    <p>
+                      <i className="far fa-circle"></i>
+                      <span className="hidenText"> Dashboard v3</span>
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <i className="far fa-circle"></i>
+                      <span className="hidenText"> Dashboard v3</span>
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <i className="far fa-circle"></i>
+                      <span className="hidenText"> Dashboard v3</span>
+                    </p>
+                  </li>
                 </ul>
               </Accordion.Body>
             </Accordion.Item>
@@ -131,21 +149,17 @@ function SideBar() {
                     <NavLink to="/users" end>
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> User v1</span>
+                        <span className="hidenText"> Users </span>
                       </p>
                     </NavLink>
                   </li>
                   <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v2</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
+                    <NavLink to="/users/create">
+                      <p>
+                        <i className="far fa-circle"></i>
+                        <span className="hidenText"> Add user</span>
+                      </p>
+                    </NavLink>
                   </li>
                 </ul>
               </Accordion.Body>

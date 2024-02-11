@@ -1,13 +1,14 @@
-import "../sassAdmin/styleIndex.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Outlet } from "react-router-dom";
+
 import SideBar from "../../../components/sideBar";
 import Footer from "../../../components/footer";
-import Dashboard from "./Dashborad/dashbroad";
 import Navigation from "../../../components/navigation";
 import logo from "../../../assets/images/AdminLTELogo.webp";
+import "../sassAdmin/styleIndex.scss";
+
 function IndexAdmin() {
   const navigate = useNavigate();
   const [cookies] = useCookies();
@@ -20,9 +21,9 @@ function IndexAdmin() {
 
   return (
     <>
-      <div className="open-start">
+      {/* <div className="open-start">
         <img src={logo} alt="" />
-      </div>
+      </div> */}
       <SideBar />
       <div className="box__admin">
         <Navigation />
