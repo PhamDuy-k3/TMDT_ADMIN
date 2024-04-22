@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
-import { USER } from "../../../../../constants/app";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Form({ title, isUpdate = false }) {
   const [cookies, setCookie] = useCookies();
   const navigate = useNavigate();
   const [statusCode, setsStatusCode] = useState();
-
+  const urlUpdate = useParams();
+  const [userUpdate, setUserUpdate] = useState();
   const {
     register,
     handleSubmit,
@@ -24,62 +24,98 @@ function Form({ title, isUpdate = false }) {
       phone: "",
       email: "",
       level: "2",
+      gender: "",
+      avatar: "",
     },
   });
-  const createUser = (data) => {
-    // call api
-    fetch("http://localhost:5050/users", {
-      method: "POST",
-      body: JSON.stringify(data),
+
+  useEffect(() => {
+    fetch(`http://localhost:5050/users/${urlUpdate.userId}`, {
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + cookies.user_token, // sau Bearer có dấu cách
+        Authorization: "Bearer " + cookies.user_token,
       },
     })
       .then((res) => res.json())
       .then((res) => {
+        setUserUpdate(res.data);
+        if (isUpdate) {
+           document.getElementById("Email").value = res.data.email;
+        }
+      });
+  }, []);
+  const urlApiCreatUser = "http://localhost:5050/users/";
+  const urlApiUpdateUser = `http://localhost:5050/users/${urlUpdate.userId}`;
+  const CreatUpdateuser = (data, method, urlApi, success, error) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("level", data.level);
+    formData.append("gender", data.gender);
+    formData.append("avatar", data.avatar[0]); // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
+
+    fetch(urlApi, {
+      method: method,
+      body: formData,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + cookies.user_token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
         if (res.status_code === 200) {
           setsStatusCode(res.status_code);
-          toast.success(() => (
-            <p style={{ paddingTop: "1rem" }}>Thêm mới user thành công!</p>
-          ));
+          toast.success(() => <p style={{ paddingTop: "1rem" }}>{success}</p>);
         } else {
-          res.errors.forEach((error) => {
-            const [key, value] = Object.entries(error)[0];
-            // console.log(Object.entries(error));
-            // console.log(value);
-            //[[propertyName , propertyValue] , []]
-            setError(key, {
-              type: "server",
-              message: value.message,
-            });
-          });
+          // Xử lý các lỗi nếu có
+          toast.error(() => <p style={{ paddingTop: "1rem" }}>{error}</p>);
         }
       });
   };
+  //Thêm user
+  const createUser = (data) => {
+    console.log(data)
+    CreatUpdateuser(
+      data,
+      "POST",
+      urlApiCreatUser,
+      "Thêm mới thành công",
+      "Thêm mới thất bại"
+    );
+  };
+  //Cập nhật user
+
+  const updateUser = async (data) => {
+    CreatUpdateuser(
+      data,
+      "PUT",
+      urlApiUpdateUser,
+      "Cập nhật thành công",
+      "Cập nhật thất bại"
+    );
+  };
+
   useEffect(() => {
     if (statusCode === 200) {
       const timeout = setTimeout(() => {
         navigate("/users");
         console.log("1");
-      }, 3000);
+      }, 1000);
       return () => clearTimeout(timeout);
     }
   }, [statusCode]);
-
-  const updateUser = async (data) => {
-    toast.success(() => (
-      <p style={{ paddingTop: "1rem" }}>Chỉnh sửa user thành công!</p>
-    ));
-  };
 
   return (
     <form onSubmit={handleSubmit(isUpdate ? updateUser : createUser)}>
       <div className="element__form">
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={1000}
           hideProgressBar={false}
           newestOnTop={true}
           closeOnClick
@@ -163,6 +199,36 @@ function Form({ title, isUpdate = false }) {
               <p className={"text-danger fw-bold"}>{errors.phone.message}</p>
             )}
           </div>
+          <div className="gender mt-2">
+            <label htmlFor="Gender">Giới tính</label> <br></br>
+            <select
+              {...register("gender", {
+                required: "Vui lòng chọn giới tính",
+              })}
+              id="Gender"
+            >
+              <option value="">Chọn giới tính</option>
+              <option value="1">Nam</option>
+              <option value="2">Nữ</option>
+            </select>
+          </div>
+          {errors.gender && (
+            <p className={"text-danger fw-bold"}>{errors.gender.message}</p>
+          )}
+          <div className="avatar mt-2">
+            <label htmlFor="Avatar">Ảnh đại diện</label>
+            <br></br>
+            <input
+              type="file"
+              id="Avatar"
+              {...register("avatar", {
+                required: "Vui lòng chọn ảnh đại diện",
+              })}
+            />
+            {errors.avatar && (
+              <p className={"text-danger fw-bold"}>{errors.avatar.message}</p>
+            )}
+          </div>
           <div className="Dec mt-3">
             <div>
               <label className="form-label">
@@ -199,7 +265,6 @@ function Form({ title, isUpdate = false }) {
           {(() => {
             if (isUpdate) {
               return <button className={"btn btn-success"}>Cập nhật</button>;
-              //button mặc định type là submit
             }
             return <button className={"btn btn-primary"}>Thêm mới</button>;
           })()}

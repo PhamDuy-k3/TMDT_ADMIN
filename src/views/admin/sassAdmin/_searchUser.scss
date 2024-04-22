@@ -1,0 +1,19 @@
+.content{
+    .userInfo{
+        width: 17rem;
+        height: 3rem;
+        label{
+            margin-right: 0.5rem;
+        }
+        input{
+            width: 13rem;
+            height: 40px;
+            padding-left:1rem ;
+            border: 1px solid rgb(210, 210, 207);
+        }
+        input:focus{
+            outline: 1px solid rgb(132, 225, 239);
+        }
+       
+    }
+}

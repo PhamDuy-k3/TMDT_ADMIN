@@ -21,9 +21,9 @@ function IndexAdmin() {
 
   return (
     <>
-      {/* <div className="open-start">
+      <div className="open-start">
         <img src={logo} alt="" />
-      </div> */}
+      </div>
       <SideBar />
       <div className="box__admin">
         <Navigation />

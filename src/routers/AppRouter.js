@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
             element: <AddUser />,
           },
           {
-            path: "/users/update",
+            path: "/users/update/:userId",
             element: <UpdateUser />,
           },
         ],
