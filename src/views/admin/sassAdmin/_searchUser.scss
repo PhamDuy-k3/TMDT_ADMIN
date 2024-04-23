@@ -1,7 +1,7 @@
 .content{
-    .userInfo{
+    .userInfo ,.ProductsInfo{
         width: 17rem;
-        height: 3rem;
+        height: 4rem;
         label{
             margin-right: 0.5rem;
         }
@@ -14,6 +14,17 @@
         input:focus{
             outline: 1px solid rgb(132, 225, 239);
         }
-       
+    }
+    #idSearchUser,#idSearchProducts{
+        width: 8rem ;
+        height: 40px;
+        margin-top: 1.5rem;
+        border-radius: 3px;
+        color: white;
+        background-color: #0D6EFD;
+        border: 1px solid rgb(210, 210, 207);
+    }
+    #idSearchUser:hover{
+        background-color: #0d65ea;
     }
 }

@@ -10,7 +10,6 @@ function Form({ title, isUpdate = false }) {
   const navigate = useNavigate();
   const [statusCode, setsStatusCode] = useState();
   const urlUpdate = useParams();
-  const [userUpdate, setUserUpdate] = useState();
   const {
     register,
     handleSubmit,
@@ -30,31 +29,38 @@ function Form({ title, isUpdate = false }) {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5050/users/${urlUpdate.userId}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + cookies.user_token,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setUserUpdate(res.data);
-        if (isUpdate) {
-           document.getElementById("Email").value = res.data.email;
-        }
-      });
-  }, []);
+    if (isUpdate) {
+      fetch(`http://localhost:5050/users/${urlUpdate.userId}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + cookies.user_token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setValue("email", res.data.email);
+          setValue("phone", res.data.phone);
+          setValue("level", res.data.level.toString());
+        });
+    }
+  }, [isUpdate, urlUpdate]);
+
   const urlApiCreatUser = "http://localhost:5050/users/";
+
   const urlApiUpdateUser = `http://localhost:5050/users/${urlUpdate.userId}`;
+
   const CreatUpdateuser = (data, method, urlApi, success, error) => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
+    formData.append("password", data.password);
     formData.append("level", data.level);
     formData.append("gender", data.gender);
+    formData.append("birthday", data.birthday);
+    formData.append("address", data.address);
     formData.append("avatar", data.avatar[0]); // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
 
     fetch(urlApi, {
@@ -79,7 +85,7 @@ function Form({ title, isUpdate = false }) {
   };
   //Thêm user
   const createUser = (data) => {
-    console.log(data)
+    // console.log(data);
     CreatUpdateuser(
       data,
       "POST",
@@ -130,6 +136,7 @@ function Form({ title, isUpdate = false }) {
           <p>{title}</p>
         </div>
         <div className="element__form-body">
+          {/* name */}
           <div className="nameUser mt-2">
             <label htmlFor="Name">
               {" "}
@@ -141,7 +148,7 @@ function Form({ title, isUpdate = false }) {
               name="name"
               id="Name"
               {...register("name", {
-                required: "Họ tên không được để trống",
+                required: "Vui lòng nhập tên!",
                 maxLength: {
                   value: 50,
                   message: "Họ tên không được lớn hơn 50 ký tự",
@@ -152,6 +159,8 @@ function Form({ title, isUpdate = false }) {
               <p className={"text-danger fw-bold"}>{errors.name.message}</p>
             )}
           </div>
+
+          {/* email */}
           <div className="emailUser mt-2">
             <label htmlFor="Email">
               Email <i className="fas fa-star-of-life"></i>
@@ -174,17 +183,20 @@ function Form({ title, isUpdate = false }) {
               <p className={"text-danger fw-bold"}>{errors.email.message}</p>
             )}
           </div>
+
+          {/* phone */}
           <div className="phoneUser mt-2">
             <label htmlFor="Phone">
               Số điện thoại <i className="fas fa-star-of-life"></i>
             </label>
             <br />
             <input
+              disabled={isUpdate}
               type="text"
               name="phone"
               id="Phone"
               {...register("phone", {
-                required: "Số điện thoại không được để trống",
+                required: "Vui lòng nhập số điện thoại!",
                 maxLength: {
                   value: 11,
                   message: "Số điện thoại không được lớn hơn 11 ký tự",
@@ -199,11 +211,35 @@ function Form({ title, isUpdate = false }) {
               <p className={"text-danger fw-bold"}>{errors.phone.message}</p>
             )}
           </div>
+          {/* password */}
+          <div className="passwordUser mt-2">
+            <label htmlFor="Password">
+              Mật khẩu <i className="fas fa-star-of-life"></i>
+            </label>
+            <br />
+            <input
+              type="password"
+              name="password"
+              id="Password"
+              {...register("password", {
+                required: "Vui lòng nhập mật khẩu!",
+                minLength: {
+                  value: 8,
+                  message: "password không được nhỏ hơn 8 ký tự",
+                },
+              })}
+            />
+            {errors.password && (
+              <p className={"text-danger fw-bold"}>{errors.password.message}</p>
+            )}
+          </div>
+
+          {/* gender */}
           <div className="gender mt-2">
             <label htmlFor="Gender">Giới tính</label> <br></br>
             <select
               {...register("gender", {
-                required: "Vui lòng chọn giới tính",
+                required: "Vui lòng chọn giới tính!",
               })}
               id="Gender"
             >
@@ -215,20 +251,42 @@ function Form({ title, isUpdate = false }) {
           {errors.gender && (
             <p className={"text-danger fw-bold"}>{errors.gender.message}</p>
           )}
-          <div className="avatar mt-2">
-            <label htmlFor="Avatar">Ảnh đại diện</label>
-            <br></br>
+
+          {/* birthday */}
+          <div className="birthdayUser mt-2">
+            <label htmlFor="Birthday">Ngày Sinh</label> <br />
             <input
-              type="file"
-              id="Avatar"
-              {...register("avatar", {
-                required: "Vui lòng chọn ảnh đại diện",
-              })}
+              type="date"
+              name="birthday"
+              id="Birthday"
+              {...register("birthday")}
             />
-            {errors.avatar && (
-              <p className={"text-danger fw-bold"}>{errors.avatar.message}</p>
-            )}
           </div>
+
+          {/* address */}
+          <div className="addressUser mt-2">
+            <label htmlFor="Address">Địa chỉ</label> <br />
+            <input
+              type="text"
+              name="address"
+              id="Address"
+              {...register("address")}
+            />
+          </div>
+
+          {/* avatar */}
+          <div class="mt-3">
+            <label for="formFile" class="form-label">
+              <label htmlFor="Avatar">Ảnh đại diện</label>
+            </label>
+            <input
+              class="form-control"
+              type="file"
+              id="formFile"
+              {...register("avatar")}
+            />
+          </div>
+          {/* level */}
           <div className="Dec mt-3">
             <div>
               <label className="form-label">

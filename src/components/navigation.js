@@ -1,12 +1,41 @@
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 function Navigation() {
   const [cookies, setCookie, removeCookies] = useCookies();
+  const [isAnimation, setIsAnimation] = useState(true);
 
+  useEffect(() => {
+    const boxAdmin = document.querySelector(".box__admin");
+    const sideBar = document.querySelector(".side-bar");
+    const arrayHiddenText = document.querySelectorAll(".hidenText");
+
+    if (!isAnimation) {
+      boxAdmin.style.marginLeft = "-11rem";
+      boxAdmin.style.transition = "0.1s";
+      sideBar.style.width = "5rem";
+      sideBar.style.transition = "0.1s";
+      arrayHiddenText.forEach((e) => {
+        e.classList.add("hidenTextActive");
+      });
+    } else {
+      boxAdmin.style.marginLeft = "0";
+      boxAdmin.style.transition = "0.1s";
+      sideBar.style.width = "16rem";
+      sideBar.style.transition = "0.1s";
+      arrayHiddenText.forEach((e) => {
+        e.classList.remove("hidenTextActive");
+      });
+    }
+  }, [isAnimation]);
+
+  const handleAnimation = () => {
+    setIsAnimation(!isAnimation);
+  };
   const logout = (e) => {
     e.preventDefault();
     removeCookies("user_token");
-    // console.log('1');
+    removeCookies("phone");
     window.location.href = "http://localhost:3000/auth/login";
   };
 
@@ -14,7 +43,7 @@ function Navigation() {
     <nav className="d-flex">
       <ul className="navbar-one d-flex">
         <li>
-          <i className="fas fa-bars" ></i>
+          <i onClick={handleAnimation} className="fas fa-bars"></i>
         </li>
         <div className="display-hidden d-flex">
           <p>Home</p>
@@ -27,12 +56,7 @@ function Navigation() {
           <div className="searchNav">
             <div className="search-nav d-flex">
               <label htmlFor="search_nav">
-                <input
-                  type="text"
-                  id="search_nav"
-                  placeholder="Search"
-                
-                />
+                <input type="text" id="search_nav" placeholder="Search" />
                 <i className="fas fa-times clear-search"></i>
               </label>
               <div className="search-nav-icon">

@@ -1,7 +1,31 @@
 import Accordion from "react-bootstrap/Accordion";
 import { BrowserRouter as Router, Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/AdminLTELogo.webp";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 function SideBar() {
+  const [cookies] = useCookies();
+  const [userlogin, setUserLogin] = useState();
+
+  useEffect(() => {
+    fetch(`http://localhost:5050/users?phone=${cookies.phone}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + cookies.user_token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res && res.data && res.data.length > 0) {
+          const firstObject = res.data[0];
+          setUserLogin(firstObject);
+        }
+      });
+  }, [cookies.phone]);
+
+  console.log(userlogin);
   return (
     <div className="side-bar">
       <div className="side-bar-header">
@@ -10,8 +34,10 @@ function SideBar() {
           <p className="hidenText">AdminLTE 3</p>
         </div>
         <div className="side-bar-header-infor d-flex">
-          <img src={logo} alt="" />
-          <p className="hidenText">Pham Duy Dev Web</p>
+          <img src={userlogin != null ? userlogin.avatar : logo} alt="" />
+          <p className="hidenText">
+            {userlogin != null ? userlogin.name : "name"}
+          </p>
         </div>
       </div>
       <div className="container-fluid">
@@ -34,8 +60,10 @@ function SideBar() {
           <Accordion className="mt-3" defaultActiveKey="0">
             <Accordion.Item eventKey="0">
               <Accordion.Header>
-                {" "}
-                <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                <i className="fas fa-tachometer-alt"></i>&nbsp;
+                <p style={{ height: "0rem" }} className="hidenText">
+                  Dashboard
+                </p>
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub0">
@@ -64,84 +92,10 @@ function SideBar() {
             </Accordion.Item>
             <Accordion.Item eventKey="1">
               <Accordion.Header>
-                {" "}
-                <i className="fab fa-wpforms"></i>&nbsp; Forms
-              </Accordion.Header>
-              <Accordion.Body>
-                <ul className="menu-sub" id="sub1">
-                  <li>
-                    <NavLink to="/form" end>
-                      <p className="optionClick">
-                        <i className="far fa-circle"></i>
-                        <span className="hidenText"> General Form</span>
-                      </p>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v2</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                </ul>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>
-                <i className="fas fa-table"></i>&nbsp;Table
-              </Accordion.Header>
-              <Accordion.Body>
-                <ul className="menu-sub" id="sub2">
-                  <li>
-                    <NavLink to="/table" end>
-                      <p className="optionClick">
-                        <i className="far fa-circle"></i>
-                        <span className="hidenText"> Simple Tables</span>
-                      </p>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v2</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                </ul>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="3">
-              <Accordion.Header>
-                <i className="fas fa-user-friends"></i>&nbsp;User
+                <i className="fas fa-user-friends"></i>&nbsp;
+                <p style={{ height: "0rem" }} className="hidenText">
+                  User
+                </p>
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub3">
@@ -166,7 +120,10 @@ function SideBar() {
             </Accordion.Item>
             <Accordion.Item eventKey="4">
               <Accordion.Header>
-                <i className="fab fa-product-hunt"></i>&nbsp;Products
+                <i className="fab fa-product-hunt"></i>&nbsp;
+                <p style={{ height: "0rem" }} className="hidenText">
+                  Products
+                </p>
               </Accordion.Header>
               <Accordion.Body>
                 <ul className="menu-sub" id="sub4">
@@ -174,21 +131,17 @@ function SideBar() {
                     <NavLink to="/products" end>
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> Products v1</span>
+                        <span className="hidenText"> Products </span>
                       </p>
                     </NavLink>
                   </li>
                   <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v2</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
+                    <NavLink to="/products/create">
+                      <p>
+                        <i className="far fa-circle"></i>
+                        <span className="hidenText"> Add Products</span>
+                      </p>
+                    </NavLink>
                   </li>
                 </ul>
               </Accordion.Body>

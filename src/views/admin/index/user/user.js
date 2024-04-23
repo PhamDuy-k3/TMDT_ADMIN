@@ -13,6 +13,7 @@ function User() {
   const [listUserSearch, setListUserSearch] = useState([]);
   const [user, setUser] = useState();
   const [cookies, setCookie] = useCookies();
+  const [limit, setLimit] = useState(20);
   const {
     register,
     handleSubmit,
@@ -30,7 +31,7 @@ function User() {
 
   ///DANH SÁCH USER
   useEffect(() => {
-    fetch("http://localhost:5050/users", {
+    fetch(`http://localhost:5050/users?limit=${limit}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -47,21 +48,29 @@ function User() {
 
   ///TÌM KIẾM USER
   const searchUser = (data) => {
-    fetch(
-      `http://localhost:5050/users?gender=${data.gender}&name=${data.name}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + cookies.user_token,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setListUserSearch(res.data);
-      });
+    if (data.gender !== "" || data.name !== "" || data.phone !== "") {
+      const genderLowercase = data.gender.toLowerCase();
+      const genderValue =
+        genderLowercase === "nam" ? 1 : genderLowercase !== "" ? 2 : "";
+
+      fetch(
+        `http://localhost:5050/users?gender=${genderValue}&name=${data.name}&phone=${data.phone}&limit=${limit}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookies.user_token,
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setListUserSearch(res.data);
+        });
+    } else {
+      alert("Nhập tìm kiếm!");
+    }
   };
 
   /// XÓA USER
@@ -104,24 +113,25 @@ function User() {
         <td>{item.phone}</td>
         <td>{item.name}</td>
         <td>{item.email}</td>
-        <td>{item.gender}</td>
+        <td>{item.gender === 1 ? "Nam" : "Nữ"}</td>
+        <td>{item.level === 1 ? "Admin" : "User"}</td>
         <td>
           <Button
-            className="btn btn-primary"
+            className="btn btn-danger"
             onClick={() => deleteUser(item._id)}
           >
-            Delete
+            Xóa
           </Button>
         </td>
         <td>
           <NavLink to={`/users/update/${item._id}`}>
-            <Button className="btn btn-success">Update</Button>
+            <Button className="btn btn-success">Cập nhật</Button>
           </NavLink>
         </td>
       </tr>
     )
   );
-  
+
   return (
     <>
       <div className="content-wraper content-wraper3 ">
@@ -154,65 +164,62 @@ function User() {
               onChange={handleChangeName}
               onSubmit={handleSubmit(searchUser)}
             >
-              <div className="d-lg-flex">
+              <div className="d-lg-flex flex-lg-wrap">
                 <div className="userInfo">
-                  <label htmlFor="nameUser">Name</label>
+                  <label htmlFor="nameUser">Tên:</label>
+                  <br />
                   <input
                     id="nameUser"
                     name="nameUser"
                     placeholder="Nhập tên ..."
-                    {...register("name", {
-                      required: "Vui lòng nhập tên!",
-                    })}
+                    {...register("name")}
                   />
-                  {errors.name && (
+                  {/* {errors.name && (
                     <p
                       style={{ marginLeft: "3.1rem" }}
                       className={"text-danger fw-bold"}
                     >
                       {errors.name.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
                 <div className="userInfo">
-                  <label htmlFor="nameUser">Phone</label>
+                  <label htmlFor="nameUser">Số điện thoại:</label>
+                  <br />
                   <input
                     id="phoneUser"
                     name="phoneUser"
                     placeholder="Nhập số điện thoại ..."
-                    {...register("phone", {
-                      required: "Vui lòng nhập sđt!",
-                    })}
+                    {...register("phone")}
                   />
-                  {errors.phone && (
+                  {/* {errors.phone && (
                     <p
                       style={{ marginLeft: "3.1rem" }}
                       className={"text-danger fw-bold"}
                     >
                       {errors.phone.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
                 <div className="userInfo">
-                  <label htmlFor="nameUser">Gender</label>
+                  <label htmlFor="nameUser">Giới tính</label>
+                  <br />
                   <input
                     id="genderUser"
                     name="genderUser"
                     placeholder="Nhập giới tính ..."
-                    {...register("gender", {
-                      required: "Vui lòng nhập giới tính!",
-                    })}
+                    {...register("gender")}
                   />
-                  {errors.gender && (
+                  {/* {errors.gender && (
                     <p
                       style={{ marginLeft: "3.5rem" }}
                       className={"text-danger fw-bold"}
                     >
                       {errors.gender.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
-                <button className="btn btn-primary ">Tìm Kiếm</button>
+                <button id="idSearchUser">Tìm Kiếm</button>
               </div>
             </form>
             <div style={{ overflow: "scroll", height: "95rem" }}>
@@ -227,12 +234,13 @@ function User() {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Phone</th>
-                    <th>Name</th>
+                    <th>Số điện thoại</th>
+                    <th>Tên người dùng</th>
                     <th>Email</th>
-                    <th>Gender</th>
-                    <th>Delete</th>
-                    <th>Update</th>
+                    <th>Giới tính</th>
+                    <th>Quyền</th>
+                    <th>Xóa</th>
+                    <th>Cập nhật</th>
                   </tr>
                 </thead>
                 <tbody>{users}</tbody>

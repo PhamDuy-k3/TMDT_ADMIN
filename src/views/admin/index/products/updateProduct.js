@@ -1,28 +1,28 @@
 import { useState, createContext } from "react";
-import Form from "./element/Form";
+import FormProduct from "./form";
 
-function AddUser() {
-  const [title] = useState("Thêm mới người dùng");
+function UpdateProduct() {
+  const [title] = useState("Cập nhật sản phẩm");
 
   return (
     <div style={{ height: "auto" }} className="content-wraper ">
       <div className="content-wraper-header d-lg-flex">
-        <h2>Quản lý người dùng</h2>
+        <h2>Quản lý sản phẩm</h2>
         <div className="d-flex content-wraper-header-cl2">
           <a href="">
             <p style={{ color: "#0A58CA" }}>Home</p>
           </a>
           <p>/</p>
-          <p className="gray">Quản lý người dùng</p>
+          <p className="gray">Quản lý sản phẩm</p>
         </div>
       </div>
       <div className="content">
         <div className="container-fluid">
-          <Form title={title} />
+          <FormProduct isUpdate={true} title={title} />
         </div>
       </div>
     </div>
   );
 }
 
-export default AddUser;
+export default UpdateProduct;
