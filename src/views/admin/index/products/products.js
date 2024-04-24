@@ -24,6 +24,7 @@ function Products() {
     // giá trị mặc định cho data
     defaultValues: {
       name: "",
+      prices: "",
     },
   });
 
@@ -45,15 +46,18 @@ function Products() {
   }, [Product]);
   ///TÌM KIẾM Products
   const searchProducts = (data) => {
-    if (data.name !== "") {
-      fetch(`http://localhost:5050/products?limit=${limit}&name=${data.name}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + cookies.Products_token,
-        },
-      })
+    if (data.name !== "" || data.prices !== "") {
+      fetch(
+        `http://localhost:5050/products?limit=${limit}&name=${data.name}&prices=${data.prices}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + cookies.Products_token,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           setListProductsSearch(res.data);

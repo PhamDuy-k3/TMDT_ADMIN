@@ -40,6 +40,7 @@ function Form({ title, isUpdate = false }) {
       })
         .then((res) => res.json())
         .then((res) => {
+          setValue("name", res.data.name);
           setValue("email", res.data.email);
           setValue("phone", res.data.phone);
           setValue("level", res.data.level.toString());
@@ -52,17 +53,39 @@ function Form({ title, isUpdate = false }) {
   const urlApiUpdateUser = `http://localhost:5050/users/${urlUpdate.userId}`;
 
   const CreatUpdateuser = (data, method, urlApi, success, error) => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("phone", data.phone);
-    formData.append("password", data.password);
-    formData.append("level", data.level);
-    formData.append("gender", data.gender);
-    formData.append("birthday", data.birthday);
-    formData.append("address", data.address);
-    formData.append("avatar", data.avatar[0]); // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
+    ///Đang lỗi cập nhật ảnh
 
+    const formData = new FormData();
+    if (data.name) {
+      formData.append("name", data.name);
+    }
+    if (data.email) {
+      formData.append("email", data.email);
+    }
+    if (data.phone) {
+      formData.append("phone", data.phone);
+    }
+    if (data.password) {
+      formData.append("password", data.password);
+    }
+    if (data.level) {
+      formData.append("level", data.level);
+    }
+    if (data.gender) {
+      formData.append("gender", data.gender);
+    }
+    if (data.birthday) {
+      formData.append("birthday", data.birthday);
+    }
+    if (data.address) {
+      formData.append("address", data.address);
+    }
+    if (data.avatar && data.avatar.length > 0) {
+      formData.append("avatar", data.avatar[0]);
+    }
+
+    // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
+    console.log(formData);
     fetch(urlApi, {
       method: method,
       body: formData,
@@ -97,6 +120,7 @@ function Form({ title, isUpdate = false }) {
   //Cập nhật user
 
   const updateUser = async (data) => {
+    //console.log(data);
     CreatUpdateuser(
       data,
       "PUT",
@@ -221,13 +245,16 @@ function Form({ title, isUpdate = false }) {
               type="password"
               name="password"
               id="Password"
-              {...register("password", {
-                required: "Vui lòng nhập mật khẩu!",
-                minLength: {
-                  value: 8,
-                  message: "password không được nhỏ hơn 8 ký tự",
-                },
-              })}
+              {...register(
+                "password",
+                !isUpdate && {
+                  required: "Vui lòng nhập mật khẩu!",
+                  minLength: {
+                    value: 8,
+                    message: "Mật khẩu không được nhỏ hơn 8 ký tự",
+                  },
+                }
+              )}
             />
             {errors.password && (
               <p className={"text-danger fw-bold"}>{errors.password.message}</p>
@@ -238,9 +265,12 @@ function Form({ title, isUpdate = false }) {
           <div className="gender mt-2">
             <label htmlFor="Gender">Giới tính</label> <br></br>
             <select
-              {...register("gender", {
-                required: "Vui lòng chọn giới tính!",
-              })}
+              {...register(
+                "gender",
+                !isUpdate && {
+                  required: "Vui lòng chọn giới tính!",
+                }
+              )}
               id="Gender"
             >
               <option value="">Chọn giới tính</option>

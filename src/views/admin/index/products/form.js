@@ -25,6 +25,7 @@ function FormProduct({ title, isUpdate = false }) {
       image: "",
     },
   });
+  // gán giá trị cho form cập nhật
   useEffect(() => {
     if (isUpdate) {
       fetch(`http://localhost:5050/Products/${urlUpdate.productId}`, {
@@ -43,16 +44,28 @@ function FormProduct({ title, isUpdate = false }) {
     }
   }, [isUpdate, urlUpdate]);
 
+  //URL API
   const urlApiCreatProduct = "http://localhost:5050/products";
 
   const urlApiUpdateProduct = `http://localhost:5050/Products/${urlUpdate.productId}`;
 
+  // Form chung
   const CreatUpdateProduct = (data, method, urlApi, success, error) => {
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("prices", data.prices);
-    formData.append("discount", data.discount);
-    formData.append("image", data.image[0]); // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
+    // lỗi cập nhật ảnh
+    if (data.name) {
+      formData.append("name", data.name);
+    }
+    if (data.prices) {
+      formData.append("prices", data.prices);
+    }
+    if (data.discount) {
+      formData.append("discount", data.discount);
+    }
+    if (data.image && data.image.length > 0) {
+      formData.append("image", data.image[0]);
+    }
+    // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
 
     fetch(urlApi, {
       method: method,
@@ -76,7 +89,6 @@ function FormProduct({ title, isUpdate = false }) {
   };
   //Thêm Product
   const createProduct = (data) => {
-    // console.log(data);
     CreatUpdateProduct(
       data,
       "POST",
@@ -85,8 +97,8 @@ function FormProduct({ title, isUpdate = false }) {
       "Thêm mới thất bại"
     );
   };
-  //Cập nhật Product
 
+  //Cập nhật Product
   const updateProduct = async (data) => {
     CreatUpdateProduct(
       data,
@@ -137,9 +149,12 @@ function FormProduct({ title, isUpdate = false }) {
               type="text"
               name="name"
               id="Name"
-              {...register("name", {
-                required: "Vui lòng nhập tên sản phẩm",
-              })}
+              {...register(
+                "name",
+                !isUpdate && {
+                  required: "Vui lòng nhập tên sản phẩm",
+                }
+              )}
             />
             {errors.name && (
               <p className={"text-danger fw-bold"}>{errors.name.message}</p>
@@ -156,9 +171,12 @@ function FormProduct({ title, isUpdate = false }) {
               type="text"
               name="prices"
               id="Prices"
-              {...register("prices", {
-                required: "Vui lòng nhập giá sản phẩm!",
-              })}
+              {...register(
+                "prices",
+                !isUpdate && {
+                  required: "Vui lòng nhập giá sản phẩm!",
+                }
+              )}
             />
             {errors.prices && (
               <p className={"text-danger fw-bold"}>{errors.prices.message}</p>
@@ -185,11 +203,14 @@ function FormProduct({ title, isUpdate = false }) {
               class="form-control"
               type="file"
               id="Image"
-              {...register("image", {
-                required: "Vui lòng chọn ảnh!",
-              })}
+              {...register(
+                "image",
+                !isUpdate && {
+                  required: "Vui lòng chọn ảnh!",
+                }
+              )}
             />
-             {errors.image && (
+            {errors.image && (
               <p className={"text-danger fw-bold"}>{errors.image.message}</p>
             )}
           </div>

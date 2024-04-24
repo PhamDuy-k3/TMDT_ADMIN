@@ -25,7 +25,7 @@ function SideBar() {
       });
   }, [cookies.phone]);
 
-  console.log(userlogin);
+  //console.log(userlogin);
   return (
     <div className="side-bar">
       <div className="side-bar-header">
@@ -34,7 +34,12 @@ function SideBar() {
           <p className="hidenText">AdminLTE 3</p>
         </div>
         <div className="side-bar-header-infor d-flex">
-          <img src={userlogin != null ? userlogin.avatar : logo} alt="" />
+          <img
+            src={
+              userlogin ? (userlogin.avatar ? userlogin.avatar : logo) : logo
+            }
+            alt=""
+          />
           <p className="hidenText">
             {userlogin != null ? userlogin.name : "name"}
           </p>
