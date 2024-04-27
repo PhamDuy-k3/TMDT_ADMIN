@@ -10,6 +10,8 @@ function FormProduct({ title, isUpdate = false }) {
   const navigate = useNavigate();
   const [statusCode, setsStatusCode] = useState();
   const urlUpdate = useParams();
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
   const {
     register,
     handleSubmit,
@@ -22,6 +24,8 @@ function FormProduct({ title, isUpdate = false }) {
       name: "",
       prices: "",
       discount: "",
+      category_id: "",
+      brand_id: "",
       image: "",
     },
   });
@@ -62,6 +66,12 @@ function FormProduct({ title, isUpdate = false }) {
     if (data.discount) {
       formData.append("discount", data.discount);
     }
+    if (data.category_id) {
+      formData.append("category_id", data.category_id);
+    }
+    if (data.brand_id) {
+      formData.append("brand_id", data.brand_id);
+    }
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
     }
@@ -89,6 +99,7 @@ function FormProduct({ title, isUpdate = false }) {
   };
   //Thêm Product
   const createProduct = (data) => {
+    console.log(data);
     CreatUpdateProduct(
       data,
       "POST",
@@ -118,6 +129,48 @@ function FormProduct({ title, isUpdate = false }) {
     }
   }, [statusCode]);
 
+  useEffect(() => {
+    fetch(`http://localhost:5050/categories`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        //Authorization: "Bearer " + cookies.Product_token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setCategories(res.data);
+      });
+  }, []);
+
+  const categorieList = categories.map((categorie) => (
+    <option key={categorie._id} value={categorie._id}>
+      {categorie.name}
+    </option>
+  ));
+
+  useEffect(() => {
+    fetch(`http://localhost:5050/brands`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        //Authorization: "Bearer " + cookies.Product_token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setBrands(res.data);
+      });
+  }, []);
+  const brandList = brands.map((brand) => {
+    return (
+      <option key={brand._id} value={brand._id}>
+        {brand.name}
+      </option>
+    );
+  });
   return (
     <form onSubmit={handleSubmit(isUpdate ? updateProduct : createProduct)}>
       <div className="element__form">
@@ -212,6 +265,46 @@ function FormProduct({ title, isUpdate = false }) {
             />
             {errors.image && (
               <p className={"text-danger fw-bold"}>{errors.image.message}</p>
+            )}
+          </div>
+          {/* categorie */}
+          <div className=" categories mt-2">
+            <label htmlFor="Categories">Danh Mục</label> <br></br>
+            <select
+              {...register(
+                "category_id",
+                !isUpdate && {
+                  required: "Vui lòng chọn danh mục!",
+                }
+              )}
+              id="Categories"
+            >
+              <option value="">Chọn danh mục</option>
+              {categorieList}
+            </select>
+            {errors.category_id && (
+              <p className={"text-danger fw-bold"}>
+                {errors.category_id.message}
+              </p>
+            )}
+          </div>
+          {/* Brands */}
+          <div className=" brands mt-2">
+            <label htmlFor="Brands">Thương hiệu</label> <br></br>
+            <select
+              {...register(
+                "brand_id",
+                !isUpdate && {
+                  required: "Vui lòng chọn thương hiệu!",
+                }
+              )}
+              id="Brands"
+            >
+              <option value="">Chọn thương hiệu</option>
+              {brandList}
+            </select>
+            {errors.brand_id && (
+              <p className={"text-danger fw-bold"}>{errors.brand_id.message}</p>
             )}
           </div>
         </div>
