@@ -123,7 +123,7 @@ function SideBar() {
                 </ul>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="4">
+            <Accordion.Item eventKey="2">
               <Accordion.Header>
                 <i className="fab fa-product-hunt"></i>&nbsp;
                 <p style={{ height: "0rem" }} className="hidenText">
@@ -150,6 +150,16 @@ function SideBar() {
                   </li>
                 </ul>
               </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="3">
+              <NavLink to="/chat" end>
+                <Accordion.Header>
+                  <i className="fab fa-product-hunt"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Chat
+                  </p>
+                </Accordion.Header>
+              </NavLink>
             </Accordion.Item>
           </Accordion>
         </div>

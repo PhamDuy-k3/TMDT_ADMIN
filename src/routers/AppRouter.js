@@ -14,6 +14,7 @@ import AddUser from "../views/admin/index/user/addUser";
 import UpdateUser from "../views/admin/index/user/updateUser";
 import AddProduct from "../views/admin/index/products/addProduct";
 import UpdateProduct from "../views/admin/index/products/updateProduct";
+import ChatRealTime from "../views/admin/index/chat/chat";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +57,15 @@ export const router = createBrowserRouter([
           {
             path: "/products/update/:productId",
             element: <UpdateProduct />,
+          },
+        ],
+      },
+      {
+        path: "/chat",
+        children: [
+          {
+            index: true,
+            element: <ChatRealTime />,
           },
         ],
       },

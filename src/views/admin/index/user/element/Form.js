@@ -53,7 +53,6 @@ function Form({ title, isUpdate = false }) {
   const urlApiUpdateUser = `http://localhost:5050/users/${urlUpdate.userId}`;
 
   const CreatUpdateuser = (data, method, urlApi, success, error) => {
-    ///Đang lỗi cập nhật ảnh
 
     const formData = new FormData();
     if (data.name) {

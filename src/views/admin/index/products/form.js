@@ -56,7 +56,7 @@ function FormProduct({ title, isUpdate = false }) {
   // Form chung
   const CreatUpdateProduct = (data, method, urlApi, success, error) => {
     const formData = new FormData();
-    // lỗi cập nhật ảnh
+   
     if (data.name) {
       formData.append("name", data.name);
     }
@@ -111,6 +111,7 @@ function FormProduct({ title, isUpdate = false }) {
 
   //Cập nhật Product
   const updateProduct = async (data) => {
+    console.log(data);
     CreatUpdateProduct(
       data,
       "PUT",
@@ -248,14 +249,15 @@ function FormProduct({ title, isUpdate = false }) {
           </div>
 
           {/* image */}
-          <div class="mt-3">
-            <label for="formFile" class="form-label">
+          <div className="mt-3">
+            <label htmlFor="formFile" className="form-label">
               <label htmlFor="Image">Ảnh sản phẩm</label>
             </label>
             <input
-              class="form-control"
+              className="form-control"
               type="file"
               id="Image"
+              name="image"
               {...register(
                 "image",
                 !isUpdate && {

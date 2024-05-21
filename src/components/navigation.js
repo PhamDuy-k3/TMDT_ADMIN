@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Navigation() {
   const [cookies, setCookie, removeCookies] = useCookies();
   const [isAnimation, setIsAnimation] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const boxAdmin = document.querySelector(".box__admin");
     const sideBar = document.querySelector(".side-bar");
@@ -36,7 +37,7 @@ function Navigation() {
     e.preventDefault();
     removeCookies("user_token");
     removeCookies("phone");
-    window.location.href = "http://localhost:3000/auth/login";
+    navigate("/auth/login");
   };
 
   return (
