@@ -27,6 +27,7 @@ function FormProduct({ title, isUpdate = false }) {
       category_id: "",
       brand_id: "",
       image: "",
+      stock: 1,
     },
   });
   // gán giá trị cho form cập nhật
@@ -56,7 +57,7 @@ function FormProduct({ title, isUpdate = false }) {
   // Form chung
   const CreatUpdateProduct = (data, method, urlApi, success, error) => {
     const formData = new FormData();
-   
+
     if (data.name) {
       formData.append("name", data.name);
     }
@@ -71,6 +72,9 @@ function FormProduct({ title, isUpdate = false }) {
     }
     if (data.brand_id) {
       formData.append("brand_id", data.brand_id);
+    }
+    if (data.stock) {
+      formData.append("stock", data.stock);
     }
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
@@ -307,6 +311,27 @@ function FormProduct({ title, isUpdate = false }) {
             </select>
             {errors.brand_id && (
               <p className={"text-danger fw-bold"}>{errors.brand_id.message}</p>
+            )}
+          </div>
+          {/* stock */}
+          <div className="pricesProduct mt-2">
+            <label htmlFor="Prices">
+              Số lượng sản phẩm <i className="fas fa-star-of-life"></i>
+            </label>
+            <br />
+            <input
+              type="text"
+              name="stock"
+              id="Stock"
+              {...register(
+                "stock",
+                !isUpdate && {
+                  required: "Vui lòng nhập giá tổng số lượng sản phẩm!",
+                }
+              )}
+            />
+            {errors.stock && (
+              <p className={"text-danger fw-bold"}>{errors.stock.message}</p>
             )}
           </div>
         </div>

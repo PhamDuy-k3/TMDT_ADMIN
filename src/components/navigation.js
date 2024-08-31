@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Navigation() {
   const [cookies, setCookie, removeCookies] = useCookies();
   const [isAnimation, setIsAnimation] = useState(true);
+  const [lengthCartsOder, setLengthCartsOder] = useState([]);
+  const [status, setStatus] = useState("unconfirmed");
   const navigate = useNavigate();
   useEffect(() => {
     const boxAdmin = document.querySelector(".box__admin");
@@ -39,7 +41,20 @@ function Navigation() {
     removeCookies("phone");
     navigate("/auth/login");
   };
-
+  const fetchCartsOder = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=${status}`
+      );
+      const data = await response.json();
+      setLengthCartsOder(data.data.length);
+    } catch (error) {
+      console.error("Error fetching API:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCartsOder();
+  }, []);
   return (
     <nav className="d-flex">
       <ul className="navbar-one d-flex">
@@ -133,9 +148,11 @@ function Navigation() {
         </li>
         <li>
           <i className="far fa-bell"></i>
-          <div className="tb">
-            <p>15</p>
-          </div>
+          <NavLink to="/orderConfirmation">
+            <div className="tb">
+              <p>{lengthCartsOder}</p>
+            </div>
+          </NavLink>
         </li>
         <li>
           <i className="fas fa-expand-arrows-alt"></i>

@@ -116,17 +116,14 @@ function User() {
         <td>{item.gender === 1 ? "Nam" : "Nữ"}</td>
         <td>{item.level === 1 ? "Admin" : "User"}</td>
         <td>
-          <Button
-            className="btn btn-danger"
-            onClick={() => deleteUser(item._id)}
-          >
-            Xóa
-          </Button>
-        </td>
-        <td>
           <NavLink to={`/users/update/${item._id}`}>
-            <Button className="btn btn-success">Cập nhật</Button>
+            <i style={{ color: "green" }} class="far fa-edit"></i>
           </NavLink>
+          <i
+            style={{ color: "red", marginLeft: "1rem" }}
+            onClick={() => deleteUser(item._id)}
+            class="fas fa-trash-alt "
+          ></i>
         </td>
       </tr>
     )
@@ -145,6 +142,7 @@ function User() {
             <p className="gray">Quản lý users</p>
           </div>
         </div>
+        <hr style={{ width: "90%", margin: "auto", marginBottom: "1rem" }}></hr>
         <ToastContainer
           position="top-right"
           autoClose={1000}
@@ -219,7 +217,11 @@ function User() {
                     </p>
                   )} */}
                 </div>
-                <button id="idSearchUser">Tìm Kiếm</button>
+                <button id="idSearchProducts">
+                  {" "}
+                  <i style={{ marginRight: "1rem" }} class="fas fa-search"></i>
+                  Tìm Kiếm
+                </button>
               </div>
             </form>
             <div style={{ overflow: "scroll", height: "95rem" }}>
@@ -239,8 +241,7 @@ function User() {
                     <th>Email</th>
                     <th>Giới tính</th>
                     <th>Quyền</th>
-                    <th>Xóa</th>
-                    <th>Cập nhật</th>
+                    <th>#</th>
                   </tr>
                 </thead>
                 <tbody>{users}</tbody>

@@ -105,21 +105,24 @@ function Products() {
   ).map((item, index) => (
     <tr key={item.id}>
       <td>{(index = index + 1)}</td>
-      <td>{item.name}</td>
+      {item.name.length > 20 ? (
+        <td>{item.name.substring(0, 20)} ...</td>
+      ) : (
+        <td>{item.name.substring(0, 20)}</td>
+      )}
+
       <td>{item.prices}</td>
       <td>{item.discount}</td>
-      <td>
-        <Button
-          className="btn btn-danger"
-          onClick={() => deleteProducts(item._id)}
-        >
-          Xóa
-        </Button>
-      </td>
+      <td>{item.stock}</td>
       <td>
         <NavLink to={`/Products/update/${item._id}`}>
-          <Button className="btn btn-success">Cập nhật</Button>
+          <i style={{ color: "green" }} class="far fa-edit"></i>
         </NavLink>
+        <i
+          style={{ color: "red", marginLeft: "1rem" }}
+          onClick={() => deleteProducts(item._id)}
+          class="fas fa-trash-alt "
+        ></i>
       </td>
     </tr>
   ));
@@ -128,15 +131,17 @@ function Products() {
     <>
       <div className="content-wraper content-wraper3 ">
         <div className="content-wraper-header d-lg-flex">
-          <h2>Quản lý Productss</h2>
+          <h2>Sản phẩm</h2>
           <div className="d-flex content-wraper-header-cl2">
             <a href="">
               <p style={{ color: "#0A58CA" }}>Home</p>
             </a>
             <p>/</p>
-            <p className="gray">Quản lý Productss</p>
+            <p className="gray">Quản lý sản phẩm</p>
           </div>
         </div>
+        <hr style={{ width: "90%", margin: "auto", marginBottom: "1rem" }}></hr>
+
         <ToastContainer
           position="top-right"
           autoClose={1000}
@@ -193,8 +198,10 @@ function Products() {
                     </p>
                   )} */}
                 </div>
-
-                <button id="idSearchProducts">Tìm Kiếm</button>
+                <button id="idSearchProducts">
+                  {" "}
+                  <i style={{marginRight:'1rem'}} class="fas fa-search"></i>Tìm Kiếm
+                </button>
               </div>
             </form>
             <div style={{ overflow: "scroll", height: "95rem" }}>
@@ -212,8 +219,8 @@ function Products() {
                     <th>Tên sản phẩm</th>
                     <th>Giá sản phẩm</th>
                     <th>Mã giảm giá</th>
-                    <th>Xóa</th>
-                    <th>Cập nhật</th>
+                    <th>Số lượng</th>
+                    <th>#</th>
                   </tr>
                 </thead>
                 <tbody>{dsProducts}</tbody>

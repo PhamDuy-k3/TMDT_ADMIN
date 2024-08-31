@@ -64,42 +64,20 @@ function SideBar() {
         <div className="Options">
           <Accordion className="mt-3" defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <i className="fas fa-tachometer-alt"></i>&nbsp;
-                <p style={{ height: "0rem" }} className="hidenText">
-                  Dashboard
-                </p>
-              </Accordion.Header>
-              <Accordion.Body>
-                <ul className="menu-sub" id="sub0">
-                  <li>
-                    <NavLink to="/">
-                      <p className="optionClick bgOpClick">
-                        <i className="far fa-circle"></i>
-                        <span className="hidenText"> Dashboard v1</span>
-                      </p>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v2</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i className="far fa-circle"></i>
-                      <span className="hidenText"> Dashboard v3</span>
-                    </p>
-                  </li>
-                </ul>
-              </Accordion.Body>
+              <NavLink to="/">
+                <Accordion.Header>
+                  <i class="fas fa-paste"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Thống kê
+                  </p>
+                </Accordion.Header>
+              </NavLink>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
               <Accordion.Header>
                 <i className="fas fa-user-friends"></i>&nbsp;
                 <p style={{ height: "0rem" }} className="hidenText">
-                  User
+                  Người dùng
                 </p>
               </Accordion.Header>
               <Accordion.Body>
@@ -108,7 +86,10 @@ function SideBar() {
                     <NavLink to="/users" end>
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> Users </span>
+                        <span className="hidenText">
+                          {" "}
+                          Danh sách người dùng{" "}
+                        </span>
                       </p>
                     </NavLink>
                   </li>
@@ -116,7 +97,7 @@ function SideBar() {
                     <NavLink to="/users/create">
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> Add user</span>
+                        <span className="hidenText"> Thêm mới</span>
                       </p>
                     </NavLink>
                   </li>
@@ -127,7 +108,7 @@ function SideBar() {
               <Accordion.Header>
                 <i className="fab fa-product-hunt"></i>&nbsp;
                 <p style={{ height: "0rem" }} className="hidenText">
-                  Products
+                  Sản phẩm
                 </p>
               </Accordion.Header>
               <Accordion.Body>
@@ -136,7 +117,7 @@ function SideBar() {
                     <NavLink to="/products" end>
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> Products </span>
+                        <span className="hidenText"> Danh sách sản phẩm </span>
                       </p>
                     </NavLink>
                   </li>
@@ -144,7 +125,7 @@ function SideBar() {
                     <NavLink to="/products/create">
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText"> Add Products</span>
+                        <span className="hidenText"> Thêm mới</span>
                       </p>
                     </NavLink>
                   </li>
@@ -154,9 +135,39 @@ function SideBar() {
             <Accordion.Item eventKey="3">
               <NavLink to="/chat" end>
                 <Accordion.Header>
-                  <i className="fab fa-product-hunt"></i>&nbsp;
+                  <i class="fas fa-comments"></i>&nbsp;
                   <p style={{ height: "0rem" }} className="hidenText">
                     Chat
+                  </p>
+                </Accordion.Header>
+              </NavLink>
+            </Accordion.Item>
+            <Accordion.Item eventKey="4">
+              <NavLink to="/orderConfirmation" end>
+                <Accordion.Header>
+                  <i class="fas fa-shopping-cart"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Xác nhận đặt hàng
+                  </p>
+                </Accordion.Header>
+              </NavLink>
+            </Accordion.Item>
+            <Accordion.Item eventKey="5">
+              <NavLink to="/paymentConfirmation" end>
+                <Accordion.Header>
+                  <i class="fas fa-money-check"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Xác nhận pay
+                  </p>
+                </Accordion.Header>
+              </NavLink>
+            </Accordion.Item>
+            <Accordion.Item eventKey="6">
+              <NavLink to="/Revenue" end>
+                <Accordion.Header>
+                  <i class="fas fa-money-check-alt"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Doanh Thu
                   </p>
                 </Accordion.Header>
               </NavLink>

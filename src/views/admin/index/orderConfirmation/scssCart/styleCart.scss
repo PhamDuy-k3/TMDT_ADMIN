@@ -1,0 +1,33 @@
+.table-order{
+    text-align: center;
+    tbody{
+        tr{
+            td:nth-child(1){
+                width: 5rem;
+            }
+            td:nth-child(2){
+                width: 20rem;
+                p{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    -webkit-line-clamp: 2; /* Số dòng bạn muốn hiển thị */
+                    line-height: 1.2; /* Điều chỉnh độ cao của dòng */
+                    max-height: 3em; /* Số dòng x độ cao của mỗi dòng */
+                    margin-bottom: 1rem;
+                    font-size: 1.1rem;
+                }
+              
+            }
+        }
+    }
+}
+.img-no-order{
+    width: 100%;
+    min-height: 28rem;
+    background-color: white;
+    img{
+        margin-top: 10%;
+        margin-left: 35%;
+    }
+}

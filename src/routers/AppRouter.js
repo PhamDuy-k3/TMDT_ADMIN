@@ -15,6 +15,9 @@ import UpdateUser from "../views/admin/index/user/updateUser";
 import AddProduct from "../views/admin/index/products/addProduct";
 import UpdateProduct from "../views/admin/index/products/updateProduct";
 import ChatRealTime from "../views/admin/index/chat/chat";
+import CartOder from "../views/admin/index/orderConfirmation/orderConfirmation";
+import CartOderPaymentConfirmation from "../views/admin/index/paymentConfirmation/paymentConfirmation";
+import Revenue from "../views/admin/index/revenue/revenue";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -66,6 +69,33 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <ChatRealTime />,
+          },
+        ],
+      },
+      {
+        path: "/orderConfirmation",
+        children: [
+          {
+            index: true,
+            element: <CartOder />,
+          },
+        ],
+      },
+      {
+        path: "/paymentConfirmation",
+        children: [
+          {
+            index: true,
+            element: <CartOderPaymentConfirmation />,
+          },
+        ],
+      },
+      {
+        path: "/Revenue",
+        children: [
+          {
+            index: true,
+            element: <Revenue />,
           },
         ],
       },

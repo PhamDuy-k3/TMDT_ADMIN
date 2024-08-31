@@ -1,4 +1,60 @@
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import RevenueColumnChart from "./RevenueColumnChart";
+import RevenuelLneChart from "./RevenuelLneChart";
+
 function Dashboard() {
+  const [listUser, setListUser] = useState([]);
+  const [cookies, setCookie] = useCookies();
+  const [limit, setLimit] = useState(20);
+  const [listProducts, setListProducts] = useState([]);
+  const [cartsOder, setCartsOder] = useState([]);
+  const [status, setStatus] = useState("unconfirmed");
+  const [statusCf, setStatusCf] = useState("confirmed");
+  const [revenue, setRevenue] = useState([]);
+
+  const fetchData = async (url, setState) => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + cookies.user_token,
+        },
+      });
+      const data = await response.json();
+      setState(data.data);
+    } catch (error) {
+      console.error("Error fetching API:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(`http://localhost:5050/users?limit=${limit}`, setListUser);
+    fetchData(`http://localhost:5050/Products?limit=${limit}`, setListProducts);
+    fetchData(
+      `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=${status}`,
+      setCartsOder
+    );
+    fetchData(
+      `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=delivered`,
+      setRevenue
+    );
+  }, []);
+
+  console.log(revenue);
+  let countRevenue = revenue.reduce((acc, e) => {
+    return (acc += e.total_prices);
+  }, 0);
+  const VND = new Intl.NumberFormat("vi-VN", {
+    // style: 'currency',
+    currency: "VND",
+  });
+  const countUser = listUser?.length || 0;
+  const countProduct = listProducts?.length || 0;
+  const countOderCf = cartsOder?.length || 0;
+
   return (
     <div className="content-wraper content-wraper0">
       <div className="content-wraper-header d-lg-flex">
@@ -18,16 +74,16 @@ function Dashboard() {
               <div className="item-more-infor-small blue">
                 <div className="inner d-flex">
                   <div className="inner-text col-7">
-                    <p>150</p>
-                    <p>New Orders</p>
+                    <p>{countProduct}</p>
+                    <p>Số sản phẩm</p>
                   </div>
                   <div className="inner-icon">
-                    <i className="fas fa-shopping-bag"></i>
+                  <i class="fab fa-product-hunt"></i>
                   </div>
                 </div>
                 <a href="">
                   <div className="moreInfor d-flex">
-                    <p>More infor</p>
+                    <p>Xem thêm</p>
                     <p>
                       <i className="fas fa-arrow-circle-right"></i>
                     </p>
@@ -39,15 +95,15 @@ function Dashboard() {
               <div className="item-more-infor-small green">
                 <div className="inner d-flex">
                   <div className="inner-text col-7">
-                    <p>150</p>
-                    <p>New Orders</p>
+                    <p>{countOderCf}</p>
+                    <p>Số đơn hàng</p>
                   </div>
                   <div className="inner-icon">
-                    <i className="fas fa-signal"></i>
+                    <i class="fas fa-shopping-cart"></i>
                   </div>
                 </div>
                 <div className="moreInfor d-flex">
-                  <p>More infor</p>
+                  <p>Xem thêm</p>
                   <p>
                     <i className="fas fa-arrow-circle-right"></i>
                   </p>
@@ -58,15 +114,15 @@ function Dashboard() {
               <div className="item-more-infor-small yellow">
                 <div className="inner d-flex">
                   <div className="inner-text col-7">
-                    <p>150</p>
-                    <p>New Orders</p>
+                    <p>{countUser}</p>
+                    <p>Số người dùng</p>
                   </div>
                   <div className="inner-icon">
                     <i className="fas fa-user-plus"></i>
                   </div>
                 </div>
                 <div className="moreInfor d-flex">
-                  <p>More infor</p>
+                  <p>Xem thêm</p>
                   <p>
                     <i className="fas fa-arrow-circle-right"></i>
                   </p>
@@ -77,15 +133,15 @@ function Dashboard() {
               <div className="item-more-infor-small red">
                 <div className="inner d-flex">
                   <div className="inner-text col-7">
-                    <p>150</p>
-                    <p>New Orders</p>
+                    <p>{VND.format(countRevenue)}</p>
+                    <p>Doanh thu</p>
                   </div>
                   <div className="inner-icon">
-                    <i className="fas fa-clock"></i>
+                    <i class="fas fa-money-check-alt"></i>
                   </div>
                 </div>
                 <div className="moreInfor d-flex">
-                  <p>More infor</p>
+                  <p>Xem thêm</p>
                   <p>
                     <i className="fas fa-arrow-circle-right"></i>
                   </p>
@@ -93,7 +149,8 @@ function Dashboard() {
               </div>
             </div>
           </div>
-
+          <RevenueColumnChart />
+          <RevenuelLneChart />
           <div className="Sale">
             <div className="Sale-header d-flex">
               <div className="Sale-header-title col-5 col-lg-7">
