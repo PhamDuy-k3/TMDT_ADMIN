@@ -1,88 +1,113 @@
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
-  width: 30rem;
-  margin-left: 10%;
-  border: 1px solid rgb(194, 191, 191);
-  overflow-y: scroll ;
-  .messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
+.chat_msg{
+  margin-left: 5rem;
+  padding: 1rem;
+  height: auto;
+  border: 1px solid rgb(216, 212, 212);
+  .list-user{
+    overflow-y: scroll;
+    height: 30rem;
+    p{
+      padding: 1rem;
+      width:13rem;
+      border-radius: 3px;
+      margin-bottom: 0;
+      border: 1px solid rgb(215, 210, 210);
+    }
+    p:hover{
+      cursor: pointer;
+      color: #007BFF;
+      background-color: #F3F3F3;
+    }
+  }
+  .chat-container {
     display: flex;
     flex-direction: column;
-    .message {
-      max-width: 70%;
+    height: 80vh;
+    border: 1px solid rgb(234, 231, 231);
+    overflow-y: scroll ;
+    background-color: #F3F3F3;
+    border-radius: 30px 10px 30px 10px;
+  
+    .messages {
+      flex: 1;
       padding: 10px;
-      margin: 5px 0;
-      border-radius: 10px;
-      position: relative;
-      .timestamp-hidden {
-        display: none;
-        position: absolute;
-        bottom: -20px;
-        background-color: white;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .timestamp-hidden.self {
-        right: 10px;
-      }
-      .timestamp-hidden.server{
-        left: 10px;
-      }
-      &:hover { // mess hover thì hiện timestamp-hidden
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      .message {
+        max-width: 70%;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 10px;
+        position: relative;
         .timestamp-hidden {
-          display: block;
+          display: none;
+          position: absolute;
+          bottom: -20px;
+          background-color: white;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .timestamp-hidden.self {
+          right: 10px;
+        }
+        .timestamp-hidden.server{
+          left: 10px;
+        }
+        &:hover { // mess hover thì hiện timestamp-hidden
+          .timestamp-hidden {
+            display: block;
+          }
         }
       }
+      .message.admin {
+        align-self: flex-end;
+        background-color:#D7F7EF;
+      }
+  
+      .message.user {
+        align-self: flex-start;
+        background-color: white;
+      }
+  
+      
+      .timestamp {
+        font-size: 0.75em;
+        color: gray;
+        position: absolute;
+        bottom: -15px;
+        right: 10px;
+      }
+      
     }
-    .message.self {
-      align-self: flex-end;
-      background-color: #daf8cb;
-    }
-    
-    .message.server {
-      align-self: flex-start;
-      background-color: #f1f0f0;
-    }
-    
-    .timestamp {
-      font-size: 0.75em;
-      color: gray;
-      position: absolute;
-      bottom: -15px;
-      right: 10px;
-    }
-    
-  }
-    
-  .input-container {
-    padding: 10px;
-    border-top: 1px solid #ccc;
-    input {
-      width: 80%;
+      
+    .input-containers {
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border-top: 1px solid #ccc;
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+      
+      button:hover {
+        background-color: #0056b3;
+      }
     }
     
-    button {
-      padding: 10px 20px;
-      margin-left: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    
-    button:hover {
-      background-color: #0056b3;
-    }
   }
   
 }

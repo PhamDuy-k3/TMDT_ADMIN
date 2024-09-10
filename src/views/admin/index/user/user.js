@@ -7,6 +7,8 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
+import ExportExcel from "../../../../components/xlsx/xlsx.js";
+import "../..//sassAdmin/_user.scss";
 
 function User() {
   const [listUser, setListUser] = useState([]);
@@ -163,59 +165,41 @@ function User() {
               onSubmit={handleSubmit(searchUser)}
             >
               <div className="d-lg-flex flex-lg-wrap">
-                <div className="userInfo">
-                  <label htmlFor="nameUser">Tên:</label>
-                  <br />
+                <div class="input-container">
                   <input
-                    id="nameUser"
-                    name="nameUser"
-                    placeholder="Nhập tên ..."
+                    placeholder="Tên người dùng"
+                    class="input-field"
+                    type="text"
                     {...register("name")}
                   />
-                  {/* {errors.name && (
-                    <p
-                      style={{ marginLeft: "3.1rem" }}
-                      className={"text-danger fw-bold"}
-                    >
-                      {errors.name.message}
-                    </p>
-                  )} */}
+                  <label for="input-field" class="input-label">
+                    Tên người dùng
+                  </label>
+                  <span class="input-highlight"></span>
                 </div>
-                <div className="userInfo">
-                  <label htmlFor="nameUser">Số điện thoại:</label>
-                  <br />
+                <div class="input-container">
                   <input
-                    id="phoneUser"
-                    name="phoneUser"
-                    placeholder="Nhập số điện thoại ..."
+                    placeholder="Số điện thoại"
+                    class="input-field"
+                    type="text"
                     {...register("phone")}
                   />
-                  {/* {errors.phone && (
-                    <p
-                      style={{ marginLeft: "3.1rem" }}
-                      className={"text-danger fw-bold"}
-                    >
-                      {errors.phone.message}
-                    </p>
-                  )} */}
+                  <label for="input-field" class="input-label">
+                    Số điện thoại
+                  </label>
+                  <span class="input-highlight"></span>
                 </div>
-                <div className="userInfo">
-                  <label htmlFor="nameUser">Giới tính</label>
-                  <br />
+                <div class="input-container">
                   <input
-                    id="genderUser"
-                    name="genderUser"
-                    placeholder="Nhập giới tính ..."
+                    placeholder="Giới tính"
+                    class="input-field"
+                    type="text"
                     {...register("gender")}
                   />
-                  {/* {errors.gender && (
-                    <p
-                      style={{ marginLeft: "3.5rem" }}
-                      className={"text-danger fw-bold"}
-                    >
-                      {errors.gender.message}
-                    </p>
-                  )} */}
+                  <label for="input-field" class="input-label">
+                    Giới tính
+                  </label>
+                  <span class="input-highlight"></span>
                 </div>
                 <button id="idSearchProducts">
                   {" "}
@@ -246,6 +230,7 @@ function User() {
                 </thead>
                 <tbody>{users}</tbody>
               </Table>
+              <ExportExcel nameFile="users" data={listUser} />
             </div>
           </div>
         </div>

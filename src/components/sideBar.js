@@ -143,26 +143,17 @@ function SideBar() {
               </NavLink>
             </Accordion.Item>
             <Accordion.Item eventKey="4">
-              <NavLink to="/orderConfirmation" end>
+              <NavLink to="/order" end>
                 <Accordion.Header>
                   <i class="fas fa-shopping-cart"></i>&nbsp;
                   <p style={{ height: "0rem" }} className="hidenText">
-                    Xác nhận đặt hàng
+                    Quản lý đơn hàng
                   </p>
                 </Accordion.Header>
               </NavLink>
             </Accordion.Item>
+
             <Accordion.Item eventKey="5">
-              <NavLink to="/paymentConfirmation" end>
-                <Accordion.Header>
-                  <i class="fas fa-money-check"></i>&nbsp;
-                  <p style={{ height: "0rem" }} className="hidenText">
-                    Xác nhận pay
-                  </p>
-                </Accordion.Header>
-              </NavLink>
-            </Accordion.Item>
-            <Accordion.Item eventKey="6">
               <NavLink to="/Revenue" end>
                 <Accordion.Header>
                   <i class="fas fa-money-check-alt"></i>&nbsp;

@@ -15,9 +15,9 @@ import UpdateUser from "../views/admin/index/user/updateUser";
 import AddProduct from "../views/admin/index/products/addProduct";
 import UpdateProduct from "../views/admin/index/products/updateProduct";
 import ChatRealTime from "../views/admin/index/chat/chat";
-import CartOder from "../views/admin/index/orderConfirmation/orderConfirmation";
-import CartOderPaymentConfirmation from "../views/admin/index/paymentConfirmation/paymentConfirmation";
 import Revenue from "../views/admin/index/revenue/revenue";
+import CartOder from "../views/admin/index/order/order";
+import File from "../views/admin/index/file/file";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "/orderConfirmation",
+        path: "/order",
         children: [
           {
             index: true,
@@ -81,21 +81,22 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "/paymentConfirmation",
-        children: [
-          {
-            index: true,
-            element: <CartOderPaymentConfirmation />,
-          },
-        ],
-      },
+
       {
         path: "/Revenue",
         children: [
           {
             index: true,
             element: <Revenue />,
+          },
+        ],
+      },
+      {
+        path: "/file",
+        children: [
+          {
+            index: true,
+            element: <File />,
           },
         ],
       },

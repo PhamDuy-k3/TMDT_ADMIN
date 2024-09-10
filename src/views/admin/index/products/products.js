@@ -7,6 +7,8 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
+import ExportExcel from "../../../../components/xlsx/xlsx";
+import "..//..//sassAdmin/_user.scss";
 
 function Products() {
   const [listProducts, setListProducts] = useState([]);
@@ -162,45 +164,35 @@ function Products() {
               onSubmit={handleSubmit(searchProducts)}
             >
               <div className="d-lg-flex flex-lg-wrap">
-                <div className="ProductsInfo">
-                  <label htmlFor="nameProducts">Tên sản phẩm:</label>
-                  <br />
+                <div class="input-container">
                   <input
-                    id="nameProducts"
-                    name="nameProducts"
-                    placeholder="Nhập tên sản phẩm ..."
+                    placeholder="Tên sản phẩm"
+                    class="input-field"
+                    type="text"
                     {...register("name")}
                   />
-                  {/* {errors.name && (
-                    <p
-                      style={{ marginLeft: "3.1rem" }}
-                      className={"text-danger fw-bold"}
-                    >
-                      {errors.name.message}
-                    </p>
-                  )} */}
+                  <label for="input-field" class="input-label">
+                    Tên sản phẩm
+                  </label>
+                  <span class="input-highlight"></span>
                 </div>
-                <div className="ProductsInfo">
-                  <label htmlFor="pricesProducts">Giá sản phẩm:</label>
-                  <br />
+                <div class="input-container">
                   <input
-                    id="pricesProducts"
-                    name="pricesProducts"
-                    placeholder="Nhập giá sản phẩm ..."
+                    placeholder="Giá sản phẩm"
+                    class="input-field"
+                    type="text"
                     {...register("prices")}
                   />
-                  {/* {errors.prices && (
-                    <p
-                      style={{ marginLeft: "3.1rem" }}
-                      className={"text-danger fw-bold"}
-                    >
-                      {errors.prices.message}
-                    </p>
-                  )} */}
+                  <label for="input-field" class="input-label">
+                    Giá sản phẩm
+                  </label>
+                  <span class="input-highlight"></span>
                 </div>
+
                 <button id="idSearchProducts">
                   {" "}
-                  <i style={{marginRight:'1rem'}} class="fas fa-search"></i>Tìm Kiếm
+                  <i style={{ marginRight: "1rem" }} class="fas fa-search"></i>
+                  Tìm Kiếm
                 </button>
               </div>
             </form>
@@ -225,6 +217,7 @@ function Products() {
                 </thead>
                 <tbody>{dsProducts}</tbody>
               </Table>
+              <ExportExcel nameFile="products" data={listProducts} />
             </div>
           </div>
         </div>
