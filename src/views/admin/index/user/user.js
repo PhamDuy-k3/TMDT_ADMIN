@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import ExportExcel from "../../../../components/xlsx/xlsx.js";
@@ -15,7 +14,10 @@ function User() {
   const [listUserSearch, setListUserSearch] = useState([]);
   const [user, setUser] = useState();
   const [cookies, setCookie] = useCookies();
+
   const [limit, setLimit] = useState(20);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
