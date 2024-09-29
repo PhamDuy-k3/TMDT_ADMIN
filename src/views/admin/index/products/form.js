@@ -38,7 +38,7 @@ function FormProduct({ title, isUpdate = false }) {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          //Authorization: "Bearer " + cookies.Product_token,
+          Authorization: "Bearer " + cookies.user_token,
         },
       })
         .then((res) => res.json())
@@ -86,7 +86,7 @@ function FormProduct({ title, isUpdate = false }) {
       body: formData,
       headers: {
         Accept: "application/json",
-        // Authorization: "Bearer " + cookies.Product_token,
+        Authorization: "Bearer " + cookies.user_token,
       },
     })
       .then((res) => res.json())

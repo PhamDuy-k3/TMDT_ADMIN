@@ -58,13 +58,13 @@ function Dashboard() {
   return (
     <div className="content-wraper content-wraper0">
       <div className="content-wraper-header d-lg-flex">
-        <h2>Dashboard</h2>
+        <h2>Thống kê</h2>
         <div className="d-flex content-wraper-header-cl2">
           <a href="">
             <p style={{ color: "#0A58CA" }}>Home</p>
           </a>
           <p>/</p>
-          <p className="gray">Dashboard v1</p>
+          <p className="gray">Thống kê</p>
         </div>
       </div>
       <div className="content">

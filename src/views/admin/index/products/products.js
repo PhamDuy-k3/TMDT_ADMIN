@@ -32,12 +32,12 @@ function Products() {
 
   ///DANH SÁCH Products
   useEffect(() => {
-    fetch(`http://localhost:5050/Products?limit=${limit}`, {
+    fetch(`http://localhost:5050/products/admin?limit=${limit}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        // Authorization: "Bearer " + cookies.Products_token,
+        Authorization: "Bearer " + cookies.user_token,
       },
     })
       .then((res) => res.json())
@@ -46,6 +46,7 @@ function Products() {
         console.log(res);
       });
   }, [Product]);
+
   ///TÌM KIẾM Products
   const searchProducts = (data) => {
     if (data.name !== "" || data.prices !== "") {
@@ -56,7 +57,7 @@ function Products() {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: "Bearer " + cookies.Products_token,
+            Authorization: "Bearer " + cookies.user_token,
           },
         }
       )
@@ -71,12 +72,12 @@ function Products() {
 
   /// XÓA Products
   const deleteProducts = (ProductId) => {
-    fetch(`http://localhost:5050/Products/${ProductId}`, {
+    fetch(`http://localhost:5050/products/${ProductId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        // "Content-Type": "application/json",
-        //Authorization: "Bearer " + cookies.Products_token,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + cookies.user_token,
       },
     })
       .then((res) => res.json())

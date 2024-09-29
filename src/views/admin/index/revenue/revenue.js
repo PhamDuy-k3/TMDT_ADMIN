@@ -13,10 +13,10 @@ function Revenue() {
   const fetchCartsOder = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=${status}&startDate=${startDate}&endDate=${endDate}`
+        `http://localhost:5050/cartsOder?status=${status}&startDate=${startDate}&endDate=${endDate}`
       );
       const data = await response.json();
-      setRes(data.data);
+      setRes(data.data || []);
     } catch (error) {
       console.error("Error fetching API:", error);
     }
@@ -58,7 +58,11 @@ function Revenue() {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <i style={{cursor:"pointer" }} onClick={fetchCartsOder} class="fas fa-search"></i>
+        <i
+          style={{ cursor: "pointer" }}
+          onClick={fetchCartsOder}
+          class="fas fa-search"
+        ></i>
       </div>
 
       <div className="body">
@@ -91,7 +95,7 @@ function Revenue() {
                       <p>{product.name}</p>
                     </td>
                     <td>{product.quantity}</td>
-                    <td>{VND.format(product.sum * 1000)}</td>
+                    <td>{VND.format(product.sum)}</td>
                     <td>
                       <i
                         class="fas fa-check-circle"

@@ -148,7 +148,7 @@ function Navigation() {
         </li>
         <li>
           <i className="far fa-bell"></i>
-          <NavLink to="/orderConfirmation">
+          <NavLink to="/order">
             <div className="tb">
               <p>{lengthCartsOder}</p>
             </div>

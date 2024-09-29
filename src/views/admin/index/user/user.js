@@ -43,7 +43,7 @@ function User() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setListUser(res.data);
+        setListUser(res.data || []);
         console.log(res);
       });
   }, [user]);

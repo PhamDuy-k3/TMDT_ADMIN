@@ -43,7 +43,7 @@ function CartOder() {
     const totalSum = carts.reduce((accumulator, product) => {
       return accumulator + parseFloat(product.sum);
     }, 0);
-    setTotal(VND.format(totalSum * 1000));
+    setTotal(totalSum);
   }, [carts]);
 
   const UpdateStatusCartOrder = async (cartOrderId, dataUpdateStatus) => {
@@ -70,6 +70,9 @@ function CartOder() {
     const dataUpdateStatus = {
       status: newStatus,
     };
+    if (newStatus === "delivered") {
+      dataUpdateStatus.confirmedAt = new Date().toISOString(); // Lưu theo định dạng ISO
+    }
     UpdateStatusCartOrder(cartOderId, dataUpdateStatus);
   };
 

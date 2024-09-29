@@ -31,7 +31,7 @@ const RevenuelLneChart = () => {
   const fetchCartsOder = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=${status}`
+        `http://localhost:5050/cartsOder?status=${status}`
       );
       const data = await response.json();
       processRevenueData(data.data);
@@ -45,8 +45,8 @@ const RevenuelLneChart = () => {
     const revenueByMonth = Array(12).fill(0);
 
     orders.forEach((order) => {
-      const createdAt = new Date(order.createdAt);
-      const month = createdAt.getMonth();
+      const confirmedAt = new Date(order.confirmedAt);
+      const month = confirmedAt.getMonth();
       console.log(month);
       revenueByMonth[month] += order.total_prices;
     });
