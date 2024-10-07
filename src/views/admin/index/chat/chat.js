@@ -13,7 +13,7 @@ const ChatRealTime = () => {
   const [listUser, setListUser] = useState([]);
   const [cookies, setCookie] = useCookies();
   const [id_room, setIdRoom] = useState("");
-  
+
   useEffect(() => {
     const socket = io("http://localhost:5050");
     socketRef.current = socket;
@@ -55,7 +55,7 @@ const ChatRealTime = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.user_token,
+            // Authorization: 'Bearer ' + cookies.admin_token,
           },
         }
       );
@@ -73,7 +73,7 @@ const ChatRealTime = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.user_token,
+            // Authorization: 'Bearer ' + cookies.admin_token,
           },
         }
       );
@@ -101,7 +101,7 @@ const ChatRealTime = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.user_token,
+            // Authorization: 'Bearer ' + cookies.admin_token,
           },
         }
       );
@@ -118,7 +118,7 @@ const ChatRealTime = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.user_token,
+            // Authorization: 'Bearer ' + cookies.admin_token,
           },
         }
       );
@@ -153,7 +153,7 @@ const ChatRealTime = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + cookies.user_token,
+        Authorization: "Bearer " + cookies.admin_token,
       },
     })
       .then((res) => res.json())

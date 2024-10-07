@@ -20,7 +20,7 @@ function Dashboard() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + cookies.user_token,
+          Authorization: "Bearer " + cookies.admin_token,
         },
       });
       const data = await response.json();
@@ -78,7 +78,7 @@ function Dashboard() {
                     <p>Số sản phẩm</p>
                   </div>
                   <div className="inner-icon">
-                  <i class="fab fa-product-hunt"></i>
+                    <i class="fab fa-product-hunt"></i>
                   </div>
                 </div>
                 <a href="">

@@ -13,7 +13,7 @@ import "../sassAdmin/styleIndex.scss";
 
 function IndexAdmin() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookies] = useCookies(["user_token"]);
+  const [cookies, setCookie, removeCookies] = useCookies(["admin_token"]);
 
   const checkToken = async () => {
     try {
@@ -22,14 +22,14 @@ function IndexAdmin() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + cookies.user_token,
+          Authorization: "Bearer " + cookies.admin_token,
         },
       });
 
       const data = await response.json();
 
       if (response.status === 500) {
-        removeCookies("user_token", { path: "/" });
+        removeCookies("admin_token", { path: "/" });
 
         navigate("/auth/login");
       } else {

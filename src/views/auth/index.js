@@ -9,7 +9,7 @@ export function Index() {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    if (!cookies.user_token) {
+    if (!cookies.admin_token) {
       toast.error(() => <p style={{ paddingTop: "1rem" }}>Token hết hạn!</p>);
     } else {
       navigate("/");

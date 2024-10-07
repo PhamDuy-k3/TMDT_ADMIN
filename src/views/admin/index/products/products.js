@@ -37,7 +37,7 @@ function Products() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + cookies.user_token,
+        Authorization: "Bearer " + cookies.admin_token,
       },
     })
       .then((res) => res.json())
@@ -57,7 +57,7 @@ function Products() {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + cookies.user_token,
+            Authorization: "Bearer " + cookies.admin_token,
           },
         }
       )
@@ -77,7 +77,7 @@ function Products() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + cookies.user_token,
+        Authorization: "Bearer " + cookies.admin_token,
       },
     })
       .then((res) => res.json())

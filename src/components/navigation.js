@@ -37,7 +37,7 @@ function Navigation() {
   };
   const logout = (e) => {
     e.preventDefault();
-    removeCookies("user_token");
+    removeCookies("admin_token");
     removeCookies("phone");
     navigate("/auth/login");
   };
