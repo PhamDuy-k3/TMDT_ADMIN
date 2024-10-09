@@ -31,7 +31,15 @@ const RevenuelLneChart = () => {
   const fetchCartsOder = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5050/cartsOder?status=${status}`
+        `http://localhost:5050/cartsOder?status=${status}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookies.admin_token,
+          },
+        }
       );
       const data = await response.json();
       processRevenueData(data.data);

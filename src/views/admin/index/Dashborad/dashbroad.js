@@ -10,7 +10,6 @@ function Dashboard() {
   const [listProducts, setListProducts] = useState([]);
   const [cartsOder, setCartsOder] = useState([]);
   const [status, setStatus] = useState("unconfirmed");
-  const [statusCf, setStatusCf] = useState("confirmed");
   const [revenue, setRevenue] = useState([]);
 
   const fetchData = async (url, setState) => {
@@ -34,13 +33,10 @@ function Dashboard() {
     fetchData(`http://localhost:5050/users?limit=${limit}`, setListUser);
     fetchData(`http://localhost:5050/Products?limit=${limit}`, setListProducts);
     fetchData(
-      `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=${status}`,
+      `http://localhost:5050/cartsOder/?status=${status}`,
       setCartsOder
     );
-    fetchData(
-      `http://localhost:5050/cartsOder/?id_user_oder=${cookies.id_user}&status=delivered`,
-      setRevenue
-    );
+    fetchData(`http://localhost:5050/cartsOder/?status=delivered`, setRevenue);
   }, []);
 
   console.log(revenue);

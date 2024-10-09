@@ -2,15 +2,26 @@ import React, { useEffect, useState } from "react";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./style.scss";
+import { useCookies } from "react-cookie";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const File = ({ idOder }) => {
   // const [carts, setCarts] = useState([]);
   const [res, setRes] = useState([]);
-
+  const [cookies] = useCookies();
   const fetchCartsOder = async () => {
     try {
-      const response = await fetch(`http://localhost:5050/cartsOder/${idOder}`);
+      const response = await fetch(
+        `http://localhost:5050/cartsOder/${idOder}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookies.admin_token,
+          },
+        }
+      );
       const data = await response.json();
       setRes(data.data);
       // setCarts(data.data[0]?.carts || []);
@@ -19,7 +30,7 @@ const File = ({ idOder }) => {
     }
   };
   console.log(res);
-  
+
   useEffect(() => {
     fetchCartsOder();
   }, []);

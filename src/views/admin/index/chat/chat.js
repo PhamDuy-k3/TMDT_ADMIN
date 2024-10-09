@@ -46,16 +46,15 @@ const ChatRealTime = () => {
   const createRoomChat = async (id) => {
     let data = {};
     data.userId = id;
-    data.adminId = "6627acf3cb3eb2d9155b2ccc";
     try {
       const response = await axios.post(
-        "http://localhost:5050/chats/create-chat-room",
+        "http://localhost:5050/chats/admin/create-chat-room",
         data,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.admin_token,
+            Authorization: "Bearer " + cookies.admin_token,
           },
         }
       );
@@ -68,12 +67,12 @@ const ChatRealTime = () => {
   const getRoom = async (id_user) => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/chats/chat-room?user_id=${id_user}`,
+        `http://localhost:5050/chats/admin/chat-room?user_id=${id_user}`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.admin_token,
+            Authorization: "Bearer " + cookies.admin_token,
           },
         }
       );
@@ -101,7 +100,7 @@ const ChatRealTime = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.admin_token,
+            Authorization: "Bearer " + cookies.admin_token,
           },
         }
       );
@@ -112,13 +111,14 @@ const ChatRealTime = () => {
 
   const getMessInRoomChat = async (idRoom) => {
     try {
+      if (!idRoom) return;
       const response = await axios.get(
         `http://localhost:5050/chats/chat-room/${idRoom}/messages`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            // Authorization: 'Bearer ' + cookies.admin_token,
+            Authorization: "Bearer " + cookies.admin_token,
           },
         }
       );

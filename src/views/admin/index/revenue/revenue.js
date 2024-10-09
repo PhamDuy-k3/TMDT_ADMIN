@@ -13,7 +13,15 @@ function Revenue() {
   const fetchCartsOder = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5050/cartsOder?status=${status}&startDate=${startDate}&endDate=${endDate}`
+        `http://localhost:5050/cartsOder/admin?status=${status}&startDate=${startDate}&endDate=${endDate}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookies.admin_token,
+          },
+        }
       );
       const data = await response.json();
       setRes(data.data || []);

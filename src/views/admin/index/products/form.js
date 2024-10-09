@@ -140,7 +140,7 @@ function FormProduct({ title, isUpdate = false }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        //Authorization: "Bearer " + cookies.Product_token,
+        Authorization: "Bearer " + cookies.admin_token,
       },
     })
       .then((res) => res.json())
@@ -161,7 +161,7 @@ function FormProduct({ title, isUpdate = false }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        //Authorization: "Bearer " + cookies.Product_token,
+        Authorization: "Bearer " + cookies.admin_token,
       },
     })
       .then((res) => res.json())

@@ -8,7 +8,7 @@ function SideBar() {
   const [userlogin, setUserLogin] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:5050/users?phone=${cookies.phone}`, {
+    fetch(`http://localhost:5050/users/profile/user`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -18,12 +18,12 @@ function SideBar() {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res && res.data && res.data.length > 0) {
-          const firstObject = res.data[0];
+        if (res && res.data) {
+          const firstObject = res.data;
           setUserLogin(firstObject);
         }
       });
-  }, [cookies.phone]);
+  }, [cookies.admin_token]);
 
   //console.log(userlogin);
   return (
