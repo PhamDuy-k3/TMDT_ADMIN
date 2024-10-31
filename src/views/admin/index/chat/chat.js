@@ -13,7 +13,16 @@ const ChatRealTime = () => {
   const [listUser, setListUser] = useState([]);
   const [cookies, setCookie] = useCookies();
   const [id_room, setIdRoom] = useState("");
+  const [id_user, setIdUser] = useState("");
 
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
   useEffect(() => {
     const socket = io("http://localhost:5050");
     socketRef.current = socket;
@@ -58,7 +67,7 @@ const ChatRealTime = () => {
           },
         }
       );
-      getMessInRoomChat(response.data.data._id);
+      await getMessInRoomChat(response.data.data._id);
       setIdRoom(response.data.data._id);
     } catch (error) {
       console.error("Lỗi khi tạo phòng chat:", error);
@@ -77,10 +86,9 @@ const ChatRealTime = () => {
         }
       );
       if (response.data.status_code === 201) {
-        // ko tìm thấy room
         createRoomChat(id_user);
       } else {
-        getMessInRoomChat(response.data.data._id);
+        await getMessInRoomChat(response.data.data._id);
         setIdRoom(response.data.data._id);
       }
     } catch (error) {
@@ -90,8 +98,13 @@ const ChatRealTime = () => {
   const createMessInRoomChat = async () => {
     let data = {};
     data.content = message;
+    if (imageFile) {
+      data.content = await convertFileToBase64(imageFile);
+    }
+    data.type = imageFile ? "image" : "text";
     data.sender = "admin";
     data.chatRoomId = id_room;
+    socketRef.current.emit("message", data);
     try {
       const response = await axios.post(
         "http://localhost:5050/chats/send-message",
@@ -104,8 +117,12 @@ const ChatRealTime = () => {
           },
         }
       );
+      await getMessInRoomChat(id_room);
     } catch (error) {
       console.error("Lỗi khi tạo phòng chat:", error);
+    } finally {
+      setMessage("");
+      setImageFile(null);
     }
   };
 
@@ -132,20 +149,6 @@ const ChatRealTime = () => {
     getMessInRoomChat();
   }, []);
 
-  // GỬI
-  const sendTextMessage = () => {
-    if (message.trim() !== "") {
-      const message_text = {
-        content: message,
-        sender: "admin",
-      };
-      socketRef.current.emit("message", message_text);
-      setMessages((prevMessages) => [...prevMessages, message_text]);
-      createMessInRoomChat();
-      setMessage("");
-    }
-  };
-
   //DANH SACH USER
   useEffect(() => {
     fetch(`http://localhost:5050/users`, {
@@ -162,34 +165,22 @@ const ChatRealTime = () => {
       });
   }, []);
 
-  const sendImageMessage = () => {
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const messageWithTimestamp = {
-          type: "image",
-          data: event.target.result,
-          timestamp: new Date().toISOString(),
-          sender: "self",
-        };
-        socketRef.current.emit("message", messageWithTimestamp);
-        setMessages((prevMessages) => [...prevMessages, messageWithTimestamp]);
-        setImageFile(null); // Reset imageFile state after sending
-      };
-      reader.readAsDataURL(imageFile);
-    }
-  };
-
   const handleSendMessage = () => {
-    if (imageFile) {
-      sendImageMessage();
-    } else {
-      sendTextMessage();
+    if (message.trim() || imageFile) {
+      if (id_room !== null) {
+        createMessInRoomChat();
+      } else {
+        getRoom(id_user);
+      }
     }
   };
 
+  const handleGetRoom = (user_id) => {
+    setIdUser(user_id);
+    getRoom(user_id);
+  };
   const list_user = listUser.map((user, index) => (
-    <p onClick={() => getRoom(user._id)} key={user._id}>
+    <p onClick={() => handleGetRoom(user._id)} key={user._id}>
       {user.name}
     </p>
   ));
@@ -198,13 +189,15 @@ const ChatRealTime = () => {
       {msg.type === "image" ? (
         <img
           style={{ width: "10rem", height: "10rem" }}
-          src={msg.data}
+          src={msg.content}
           alt="sent"
         />
       ) : (
         <div>{msg.content}</div>
       )}
-      <div className="timestamp-hidden">{formatTime(msg.timestamp)}</div>
+      <div className={`timestamp-hidden ${msg.sender}`}>
+        {formatTime(msg.timestamp)}
+      </div>
     </div>
   ));
 
