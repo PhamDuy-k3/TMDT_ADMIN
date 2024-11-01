@@ -27,7 +27,12 @@
     overflow-y: scroll ;
     background-color: #F3F3F3;
     border-radius: 30px 10px 30px 10px;
-  
+    #img-df-chat{
+      margin-left: 13%;
+      width: 20rem;
+      margin-top: 2rem;
+      height: auto;
+    }
     .messages {
       flex: 1;
       padding: 10px;

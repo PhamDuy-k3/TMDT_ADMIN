@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import "./ChatRealTime.scss";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-
+import imgChatDf from "../../../../assets/images/chat_default_img_admin.jpg";
 const ChatRealTime = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -54,7 +54,7 @@ const ChatRealTime = () => {
 
   const createRoomChat = async (id) => {
     let data = {};
-    data.userId = id;
+    data.user_id = id;
     try {
       const response = await axios.post(
         "http://localhost:5050/chats/admin/create-chat-room",
@@ -206,7 +206,11 @@ const ChatRealTime = () => {
       <div className="list-user col-lg-4">{list_user}</div>
       <div className="chat-container col-lg-8">
         <div ref={messagesEndRef} className="messages">
-          {messages.length > 0 ? messagesList : <p>Bắt đầu đoạn chat mới</p>}
+          {messages.length > 0 ? (
+            messagesList
+          ) : (
+            <img id="img-df-chat" src={imgChatDf} alt="img" />
+          )}
         </div>
         <div className="input-containers">
           <input type="file" onChange={handleFileInputChange} />
