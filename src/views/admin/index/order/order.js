@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import imgNoOder from "..//..//..//..//assets/images/no-order.jpg";
 import Menu from "./menu";
-import { Button } from "antd";
 import File from "../file/file";
 import Loading from "../../../../components/loading/loading";
 
@@ -107,7 +106,6 @@ function CartOder() {
                         <th>Màu</th>
                         <th>Size</th>
                         <th>Số Lượng</th>
-                        <th>Thao Tác</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -135,127 +133,6 @@ function CartOder() {
                               <p>{product.size}</p>
                             </td>
                             <td className="text-center">{product.quantity}</td>
-                            <td className="text-center">
-                              {item.status === "confirmed" ? (
-                                <>
-                                  <Button type="default" disabled>
-                                    Đã xác nhận
-                                  </Button>
-                                  <Button
-                                    type="primary"
-                                    onClick={() =>
-                                      handelOderCf(item._id, "processing")
-                                    }
-                                    style={{ marginLeft: "8px" }}
-                                  >
-                                    Xử lý
-                                  </Button>
-                                </>
-                              ) : item.status === "processing" ? (
-                                <>
-                                  <Button
-                                    onClick={() =>
-                                      handelOderCf(item._id, "canceled")
-                                    }
-                                    type="default"
-                                    style={{
-                                      backgroundColor: "red",
-                                      color: "white",
-                                    }}
-                                  >
-                                    Hủy
-                                  </Button>
-                                  <Button
-                                    onClick={() =>
-                                      handelOderCf(item._id, "shipped")
-                                    }
-                                    type="primary"
-                                  >
-                                    Giao hàng
-                                  </Button>
-                                </>
-                              ) : item.status === "shipped" ? (
-                                <>
-                                  <Button
-                                    onClick={() =>
-                                      handelOderCf(item._id, "delivered")
-                                    }
-                                    type="primary"
-                                  >
-                                    Đã giao thành công
-                                  </Button>
-                                  <Button
-                                    type="default"
-                                    onClick={() =>
-                                      handelOderCf(item._id, "returned")
-                                    }
-                                    style={{
-                                      backgroundColor: "orange",
-                                      color: "white",
-                                    }}
-                                  >
-                                    Trả hàng
-                                  </Button>
-                                </>
-                              ) : item.status === "delivered" ? (
-                                <>
-                                  <div
-                                    style={{ marginLeft: "3rem" }}
-                                    className="d-flex"
-                                  >
-                                    <Button type="default" disabled>
-                                      Hoàn thành
-                                    </Button>
-                                    <File idOder={item._id} />
-                                  </div>
-                                </>
-                              ) : item.status === "canceled" ? (
-                                <Button
-                                  type="default"
-                                  disabled
-                                  style={{
-                                    backgroundColor: "red",
-                                    color: "white",
-                                  }}
-                                >
-                                  Đã hủy
-                                </Button>
-                              ) : item.status === "returned" ? (
-                                <Button
-                                  type="default"
-                                  disabled
-                                  style={{
-                                    backgroundColor: "orange",
-                                    color: "white",
-                                  }}
-                                >
-                                  Đã trả hàng
-                                </Button>
-                              ) : (
-                                <>
-                                  <Button
-                                    type="primary"
-                                    onClick={() =>
-                                      handelOderCf(item._id, "confirmed")
-                                    }
-                                  >
-                                    Xác nhận
-                                  </Button>
-                                  <Button
-                                    onClick={() =>
-                                      handelOderCf(item._id, "canceled")
-                                    }
-                                    type="default"
-                                    style={{
-                                      backgroundColor: "red",
-                                      color: "white",
-                                    }}
-                                  >
-                                    Hủy
-                                  </Button>
-                                </>
-                              )}
-                            </td>
                           </tr>
                         ))
                       ) : (
@@ -266,6 +143,124 @@ function CartOder() {
                         </tr>
                       )}
                     </tbody>
+                    <div className="text-center order_action">
+                      {item.status === "confirmed" ? (
+                        <>
+                          <button className="disabled">Đã xác nhận</button>
+                          <button
+                            onClick={() => handelOderCf(item._id, "processing")}
+                            style={{
+                              marginLeft: "8px",
+                              backgroundColor: "#FFA500", // Màu cam cho nút xử lý
+                              color: "white",
+                            }}
+                          >
+                            Xử lý
+                          </button>
+                        </>
+                      ) : item.status === "processing" ? (
+                        <>
+                          <button
+                            onClick={() => handelOderCf(item._id, "canceled")}
+                            style={{
+                              backgroundColor: "#FF4C4C", // Màu đỏ sáng cho nút hủy
+                              color: "white",
+                            }}
+                          >
+                            Hủy
+                          </button>
+                          <button
+                            onClick={() => handelOderCf(item._id, "shipped")}
+                            style={{
+                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút giao hàng
+                              color: "white",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Giao hàng
+                          </button>
+                        </>
+                      ) : item.status === "shipped" ? (
+                        <>
+                          <button
+                            onClick={() => handelOderCf(item._id, "delivered")}
+                            style={{
+                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút đã giao
+                              color: "white",
+                            }}
+                          >
+                            Đã giao thành công
+                          </button>
+                          <button
+                            onClick={() => handelOderCf(item._id, "returned")}
+                            style={{
+                              backgroundColor: "#FFA500", // Màu cam cho nút trả hàng
+                              color: "white",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Trả hàng
+                          </button>
+                        </>
+                      ) : item.status === "delivered" ? (
+                        <>
+                          <div
+                            style={{ marginLeft: "3rem" }}
+                            className="d-flex"
+                          >
+                            <button
+                              style={{
+                                backgroundColor: "#4CAF50", // Màu xanh lá cho nút hoàn thành
+                                color: "white",
+                              }}
+                            >
+                              Hoàn thành
+                            </button>
+                            <File idOder={item._id} />
+                          </div>
+                        </>
+                      ) : item.status === "canceled" ? (
+                        <button
+                          style={{
+                            backgroundColor: "#FF4C4C", // Màu đỏ sáng cho trạng thái đã hủy
+                            color: "white",
+                          }}
+                        >
+                          Đã hủy
+                        </button>
+                      ) : item.status === "returned" ? (
+                        <button
+                          style={{
+                            backgroundColor: "#FFA500", // Màu cam cho trạng thái đã trả hàng
+                            color: "white",
+                          }}
+                        >
+                          Đã trả hàng
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handelOderCf(item._id, "confirmed")}
+                            style={{
+                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút xác nhận
+                              color: "white",
+                            }}
+                          >
+                            Xác nhận
+                          </button>
+                          <button
+                            onClick={() => handelOderCf(item._id, "canceled")}
+                            style={{
+                              backgroundColor: "#FF4C4C", // Màu đỏ sáng cho nút hủy
+                              color: "white",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Hủy
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </table>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import "./ChatRealTime.scss";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import imgChatDf from "../../../../assets/images/chat_default_img_admin.jpg";
+import LoadingMess from "../../../../components/loadingmess/loadingMess";
 const ChatRealTime = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -14,6 +15,7 @@ const ChatRealTime = () => {
   const [cookies, setCookie] = useCookies();
   const [id_room, setIdRoom] = useState("");
   const [id_user, setIdUser] = useState("");
+  const [loading, setLoading] = useState({});
 
   const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -32,6 +34,12 @@ const ChatRealTime = () => {
         ...prevMessages,
         { ...msg, sender: "user" },
       ]);
+    });
+    socket.on("messloading", (value) => {
+      setLoading(value);
+    });
+    socket.on("messloadingCompelete", (value) => {
+      setLoading(value);
     });
     return () => {
       socket.disconnect();
@@ -118,6 +126,7 @@ const ChatRealTime = () => {
         }
       );
       await getMessInRoomChat(id_room);
+      socketRef.current.emit("messloadingCompelete", false);
     } catch (error) {
       console.error("Lỗi khi tạo phòng chat:", error);
     } finally {
@@ -165,7 +174,15 @@ const ChatRealTime = () => {
       });
   }, []);
 
-  const handleSendMessage = () => {
+  const handlekeyDown = (e) => {
+    socketRef.current.emit("messloading", true);
+    if (e.key === "Enter") {
+      console.log("Enter key pressed");
+      socketRef.current.emit("messloadingCompelete", false);
+    }
+  };
+  const handleSendMessage = (event) => {
+    event.preventDefault();
     if (message.trim() || imageFile) {
       if (id_room !== null) {
         createMessInRoomChat();
@@ -202,27 +219,31 @@ const ChatRealTime = () => {
   ));
 
   return (
-    <div className="d-flex col-lg-8 chat_msg">
-      <div className="list-user col-lg-4">{list_user}</div>
-      <div className="chat-container col-lg-8">
-        <div ref={messagesEndRef} className="messages">
-          {messages.length > 0 ? (
-            messagesList
-          ) : (
-            <img id="img-df-chat" src={imgChatDf} alt="img" />
-          )}
-        </div>
-        <div className="input-containers">
-          <input type="file" onChange={handleFileInputChange} />
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={handleSendMessage}>Send</button>
+    <form onSubmit={handleSendMessage}>
+      <div className="d-flex col-lg-8 chat_msg">
+        <div className="list-user col-lg-4">{list_user}</div>
+        <div className="chat-container col-lg-8">
+          {loading.check && loading.chatId === id_room && <LoadingMess />}
+          <div ref={messagesEndRef} className="messages">
+            {messages.length > 0 ? (
+              messagesList
+            ) : (
+              <img id="img-df-chat" src={imgChatDf} alt="img" />
+            )}
+          </div>
+          <div className="input-containers">
+            <input type="file" onChange={handleFileInputChange} />
+            <input
+              onKeyDown={handlekeyDown}
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button>Gửi</button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

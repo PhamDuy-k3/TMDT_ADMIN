@@ -1,9 +1,17 @@
 .table-order{
     text-align: center;
+    position: relative;
+    margin-bottom: 4rem;
     tbody{
         tr{
             td:nth-child(1){
                 width: 5rem;
+            }
+            td:nth-child(3){
+                width: 7rem;
+            }
+            td:nth-child(5){
+                width: 7rem;
             }
             td:nth-child(2){
                 width: 20rem;
@@ -19,12 +27,30 @@
                 }
               
             }
-            Button{
-                margin-left: 5px;
-            }
+           
               
         }
     }
+    .order_action{
+        background-color: white;
+        position: absolute;
+        right: 1rem;
+        bottom: -3rem;
+        button{
+            border-radius: 3px;
+            border: 1px solid rgb(190, 186, 186);
+            padding: 0.5rem 1rem;
+            margin-right: 2rem;
+        }
+    }
+}
+.disabled {
+    background-color: #f0f0f0;     /* Màu nền nhẹ nhàng hơn */
+    color: #a0a0a0;                /* Màu chữ xám nhạt để cho thấy trạng thái không hoạt động */
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;                  /* Giảm độ đậm để nhấn mạnh trạng thái disabled */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 .img-no-order{
     width: 100%;
