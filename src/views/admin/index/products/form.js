@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import SizeComponet from "./size";
 
 function FormProduct({ title, isUpdate = false }) {
   const [cookies, setCookie] = useCookies();
@@ -28,6 +29,7 @@ function FormProduct({ title, isUpdate = false }) {
       brand_id: "",
       image: "",
       stock: 1,
+      sizes: [],
     },
   });
   // gán giá trị cho form cập nhật
@@ -75,6 +77,11 @@ function FormProduct({ title, isUpdate = false }) {
     }
     if (data.stock) {
       formData.append("stock", data.stock);
+    }
+    if (data.sizes && Array.isArray(data.sizes)) {
+      data.sizes.forEach((size) => {
+        formData.append("sizes", size);
+      });
     }
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
@@ -312,6 +319,16 @@ function FormProduct({ title, isUpdate = false }) {
             {errors.brand_id && (
               <p className={"text-danger fw-bold"}>{errors.brand_id.message}</p>
             )}
+          </div>
+          {/* size */}
+          <div className=" size mt-2">
+            <label htmlFor="Size">Size</label> <br></br>
+            <SizeComponet
+              register={register}
+              setValue={setValue}
+              errors={errors}
+              isUpdate={isUpdate}
+            />
           </div>
           {/* stock */}
           <div className="pricesProduct mt-2">
