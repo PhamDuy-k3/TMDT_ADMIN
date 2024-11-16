@@ -1,20 +1,33 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 .table-order{
     text-align: center;
     position: relative;
     margin-bottom: 4rem;
     tbody{
         tr{
+            td{
+                text-align: center; 
+                vertical-align: middle; 
+                p{
+                    margin-bottom: 0 ;
+                }
+            }
+           
             td:nth-child(1){
                 width: 5rem;
             }
             td:nth-child(3){
-                width: 7rem;
+                width: 10rem;
             }
             td:nth-child(5){
                 width: 7rem;
             }
             td:nth-child(2){
-                width: 20rem;
+                width: 25rem;
                 p{
                     display: -webkit-box;
                     -webkit-box-orient: vertical;

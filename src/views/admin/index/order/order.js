@@ -106,6 +106,7 @@ function CartOder() {
                         <th>Màu</th>
                         <th>Size</th>
                         <th>Số Lượng</th>
+                        <th>Tổng tiền</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -133,6 +134,9 @@ function CartOder() {
                               <p>{product.size}</p>
                             </td>
                             <td className="text-center">{product.quantity}</td>
+                            <td className="text-center">
+                              {VND.format(product.sum)}
+                            </td>
                           </tr>
                         ))
                       ) : (

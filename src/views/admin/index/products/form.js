@@ -28,7 +28,8 @@ function FormProduct({ title, isUpdate = false }) {
       discount: "",
       category_id: "",
       brand_id: "",
-      image: "",
+      images: [],
+      videos: [],
       stock: 1,
     },
   });
@@ -78,12 +79,14 @@ function FormProduct({ title, isUpdate = false }) {
     if (data.stock) {
       formData.append("stock", data.stock);
     }
-    if (data.variants && Array.isArray(data.variants)) {
-      formData.append("variants", JSON.stringify(data.variants));
-    }
-    if (data.image && data.image.length > 0) {
-      formData.append("image", data.image[0]);
-    }
+
+    Array.from(data.images).forEach((file) => {
+      formData.append("images", file);
+    });
+    Array.from(data.videos).forEach((file) => {
+      formData.append("videos", file);
+    });
+
     // Chú ý: data.avatar là một mảng, chúng ta cần lấy phần tử đầu tiên
 
     fetch(urlApi, {
@@ -108,7 +111,6 @@ function FormProduct({ title, isUpdate = false }) {
   };
   //Thêm Product
   const createProduct = (data) => {
-    console.log(data);
     CreatUpdateProduct(
       data,
       "POST",
@@ -268,15 +270,38 @@ function FormProduct({ title, isUpdate = false }) {
               type="file"
               id="Image"
               name="image"
+              multiple
               {...register(
-                "image",
+                "images",
                 !isUpdate && {
                   required: "Vui lòng chọn ảnh!",
                 }
               )}
             />
-            {errors.image && (
-              <p className={"text-danger fw-bold"}>{errors.image.message}</p>
+            {errors.images && (
+              <p className={"text-danger fw-bold"}>{errors.images.message}</p>
+            )}
+          </div>
+          {/* videos */}
+          <div className="mt-3">
+            <label htmlFor="formFile" className="form-label">
+              <label htmlFor="Videos">Videos sản phẩm</label>
+            </label>
+            <input
+              className="form-control"
+              type="file"
+              id="Videos"
+              name="videos"
+              multiple
+              {...register(
+                "videos",
+                !isUpdate && {
+                  required: "Vui lòng chọn video!",
+                }
+              )}
+            />
+            {errors.videos && (
+              <p className={"text-danger fw-bold"}>{errors.videos.message}</p>
             )}
           </div>
           {/* categorie */}

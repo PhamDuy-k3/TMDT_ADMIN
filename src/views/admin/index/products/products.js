@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import {
+  FaEdit,
+  FaTrashAlt,
+  FaPenNib,
+  FaLock,
+  FaLockOpen,
+} from "react-icons/fa";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { useCookies } from "react-cookie";
@@ -152,34 +158,90 @@ function Products() {
       setListProductsSearch([]);
     }
   };
+  const actionHide = async (data, id_product, boolean, txt) => {
+    const response = await axios.put(
+      `http://localhost:5050/Products/isVisible/${id_product}`,
+      data,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + cookies.admin_token,
+        },
+      }
+    );
+    if (response.data.status_code === 200) {
+      toast.success(`${txt} sản phẩm thành công!`);
+      setListProductsSearch(
+        listProductsSearch.map((product) => {
+          if (product._id === id_product) {
+            product.isVisible = boolean;
+          }
+          return product;
+        })
+      );
+      setListProducts(
+        listProducts.map((product) => {
+          if (product._id === id_product) {
+            product.isVisible = boolean;
+          }
+          return product;
+        })
+      );
+    }
+  };
+  const hideProduct = async (id_product) => {
+    const data = {
+      isVisible: true,
+    };
+    actionHide(data, id_product, true, "Hiển thị");
+  };
+  const hiddenProduct = (id_product) => {
+    const data = {
+      isVisible: false,
+    };
+    actionHide(data, id_product, false, "Ẩn");
+  };
   const dsProducts = (
     listProductsSearch.length > 0 ? listProductsSearch : listProducts
   ).map((item, index) => (
     <tr key={item._id}>
-      <td>{(index = index + 1)}</td>
-      {item.name.length > 20 ? (
-        <td>{item.name.substring(0, 20)} ...</td>
-      ) : (
-        <td>{item.name.substring(0, 20)}</td>
-      )}
+      <td className="name_product">{(index = index + 1)}</td>
+      <td>
+        <img src={item.images[0]} alt="" />
+      </td>
+      <td>{item.name}</td>
 
       <td>{item.prices}</td>
       <td>{item.discount}</td>
       <td>{item.stock}</td>
       <td>
         <NavLink to={`/Products/update/${item._id}`}>
-          <i style={{ color: "green" }} class="far fa-edit"></i>
+          <FaEdit className="icon_action" style={{ color: "green" }} />
         </NavLink>
-        <i
+        <FaTrashAlt
+          className="icon_action"
           style={{ color: "red", marginLeft: "1rem" }}
           onClick={() => deleteProducts(item._id)}
-          class="fas fa-trash-alt "
-        ></i>
-        <i
+        />
+        <FaPenNib
+          className="icon_action"
           style={{ color: "green", marginLeft: "1rem" }}
-          className="fas fa-pen-nib"
           onClick={() => openModal(item._id)}
-        ></i>
+        />
+        {item.isVisible ? (
+          <FaLockOpen
+            className="icon_action"
+            onClick={() => hiddenProduct(item._id)}
+            style={{ color: "green", marginLeft: "1rem" }}
+          />
+        ) : (
+          <FaLock
+            className="icon_action"
+            onClick={() => hideProduct(item._id)}
+            style={{ color: "red", marginLeft: "1rem" }}
+          />
+        )}
       </td>
     </tr>
   ));
@@ -245,7 +307,6 @@ function Products() {
                 </div>
 
                 <button id="idSearchProducts">
-                  {" "}
                   <i style={{ marginRight: "1rem" }} class="fas fa-search"></i>
                   Tìm Kiếm
                 </button>
@@ -306,7 +367,7 @@ function Products() {
             )}
             <div style={{ overflow: "scroll", height: "95rem" }}>
               <Table
-                className="mt-4"
+                className="mt-4 table_product"
                 style={{ textAlign: "center" }}
                 striped
                 bordered
@@ -316,6 +377,7 @@ function Products() {
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>Ảnh</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá sản phẩm</th>
                     <th>Mã giảm giá</th>
