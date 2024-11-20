@@ -7,7 +7,7 @@ function UpdateUser() {
   return (
     <div style={{ height: "auto" }} className="content-wraper ">
       <div className="content-wraper-header d-lg-flex">
-        <h2>Quản lý users</h2>
+        <h4>Quản lý users</h4>
         <div className="d-flex content-wraper-header-cl2">
           <a href="">
             <p style={{ color: "#0A58CA" }}>Home</p>

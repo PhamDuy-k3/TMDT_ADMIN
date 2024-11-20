@@ -152,8 +152,28 @@ function SideBar() {
                 </Accordion.Header>
               </NavLink>
             </Accordion.Item>
-
             <Accordion.Item eventKey="5">
+              <NavLink to="/vouchers" end>
+                <Accordion.Header>
+                  <i class="fas fa-wallet"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Quản lý voucher
+                  </p>
+                </Accordion.Header>
+              </NavLink>
+            </Accordion.Item>
+            <Accordion.Item eventKey="5">
+              <NavLink to="/shippingfee" end>
+                <Accordion.Header>
+                  <i class="fas fa-shipping-fast"></i>&nbsp;
+                  <p style={{ height: "0rem" }} className="hidenText">
+                    Quản lý Phí vận chuyển
+                  </p>
+                </Accordion.Header>
+              </NavLink>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="6">
               <NavLink to="/Revenue" end>
                 <Accordion.Header>
                   <i class="fas fa-money-check-alt"></i>&nbsp;

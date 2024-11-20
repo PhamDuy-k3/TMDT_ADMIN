@@ -121,12 +121,12 @@ function User() {
         <td>{item.level === 1 ? "Admin" : "User"}</td>
         <td>
           <NavLink to={`/users/update/${item._id}`}>
-            <i style={{ color: "green" }} class="far fa-edit"></i>
+            <i style={{ color: "green" }} class="far fa-edit icon_action"></i>
           </NavLink>
           <i
             style={{ color: "red", marginLeft: "1rem" }}
             onClick={() => deleteUser(item._id)}
-            class="fas fa-trash-alt "
+            class="fas fa-trash-alt icon_action "
           ></i>
         </td>
       </tr>
@@ -137,7 +137,7 @@ function User() {
     <>
       <div className="content-wraper content-wraper3 ">
         <div className="content-wraper-header d-lg-flex">
-          <h2>Quản lý users</h2>
+          <h4>Quản lý users</h4>
           <div className="d-flex content-wraper-header-cl2">
             <a href="">
               <p style={{ color: "#0A58CA" }}>Home</p>

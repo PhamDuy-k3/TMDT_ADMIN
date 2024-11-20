@@ -250,7 +250,7 @@ function Products() {
     <>
       <div className="content-wraper content-wraper3 ">
         <div className="content-wraper-header d-lg-flex">
-          <h2>Sản phẩm</h2>
+          <h4>Sản phẩm</h4>
           <div className="d-flex content-wraper-header-cl2">
             <Link to="">
               <p style={{ color: "#0A58CA" }}>Home</p>
@@ -365,7 +365,7 @@ function Products() {
                 </div>
               </div>
             )}
-            <div style={{ overflow: "scroll", height: "95rem" }}>
+            <div>
               <Table
                 className="mt-4 table_product"
                 style={{ textAlign: "center" }}

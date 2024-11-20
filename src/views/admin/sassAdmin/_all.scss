@@ -8,7 +8,14 @@
     background-color: rgba($color: #000000, $alpha: 0.2);
     display: none;
 }
-
+td , th{
+    font-size: 0.8rem;
+    text-align: center;
+    vertical-align: middle;
+    p{
+        margin-bottom: 0 !important;
+    }
+}
 .open-start{
     position: fixed;
     z-index: 200;

@@ -6,6 +6,12 @@ $orangeColoer:#EE4D2D;
     margin: 0;
     padding: 0;
 }
+.icon_action{
+    cursor: pointer;
+}
+.icon_action:hover{
+    transform: scale(1.5);
+}
 html{
     font-size: 16px;
 }

@@ -48,7 +48,7 @@ function Revenue() {
 
   return (
     <div className="box_cart">
-      <p style={{ marginLeft: "3rem", fontSize: "2rem" }}>Doanh Thu</p>
+      <h4 style={{ marginLeft: "3rem"}}>Doanh Thu</h4>
       <hr style={{ width: "90%", margin: "auto", marginBottom: "1rem" }}></hr>
 
       <div id="revenue-over-time">
@@ -74,7 +74,7 @@ function Revenue() {
       </div>
 
       <div className="body">
-        <div className="container-fluid">
+        <div style={{minHeight:"55vh"}} className="container-fluid">
           {carts.length > 0 ? (
             <table id="revenue" className="table table-bordered table-striped">
               <thead>

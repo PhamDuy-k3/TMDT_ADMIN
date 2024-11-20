@@ -17,14 +17,6 @@
                 width: 25rem;
                 text-align: justify;
             }
-            td:last-child{
-                .icon_action{
-                    cursor: pointer;
-                }
-                .icon_action:hover{
-                    transform: scale(1.5);
-                }
-            }
         }
     }
 }

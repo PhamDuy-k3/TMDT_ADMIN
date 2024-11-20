@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import RevenueColumnChart from "./RevenueColumnChart";
 import RevenuelLneChart from "./RevenuelLneChart";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [listUser, setListUser] = useState([]);
@@ -11,7 +12,7 @@ function Dashboard() {
   const [cartsOder, setCartsOder] = useState([]);
   const [status, setStatus] = useState("unconfirmed");
   const [revenue, setRevenue] = useState([]);
-
+  const [totalRevenue, setTotalRevenue] = useState(0);
   const fetchData = async (url, setState) => {
     try {
       const response = await fetch(url, {
@@ -39,10 +40,17 @@ function Dashboard() {
     fetchData(`http://localhost:5050/cartsOder/?status=delivered`, setRevenue);
   }, []);
 
-  console.log(revenue);
-  let countRevenue = revenue.reduce((acc, e) => {
-    return (acc += e.total_prices);
-  }, 0);
+  const total_revenue = useCallback(() => {
+    let countRevenue = revenue.reduce((acc, e) => {
+      return (acc += +e.orderTotal);
+    }, 0);
+    setTotalRevenue(countRevenue);
+  }, [revenue]);
+
+  useEffect(() => {
+    total_revenue();
+  }, [total_revenue]);
+
   const VND = new Intl.NumberFormat("vi-VN", {
     // style: 'currency',
     currency: "VND",
@@ -54,7 +62,7 @@ function Dashboard() {
   return (
     <div className="content-wraper content-wraper0">
       <div className="content-wraper-header d-lg-flex">
-        <h2>Thống kê</h2>
+        <h4>Thống kê</h4>
         <div className="d-flex content-wraper-header-cl2">
           <a href="">
             <p style={{ color: "#0A58CA" }}>Home</p>
@@ -77,14 +85,14 @@ function Dashboard() {
                     <i class="fab fa-product-hunt"></i>
                   </div>
                 </div>
-                <a href="">
+                <Link to="/products">
                   <div className="moreInfor d-flex">
                     <p>Xem thêm</p>
                     <p>
                       <i className="fas fa-arrow-circle-right"></i>
                     </p>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="item-more-infor">
@@ -98,12 +106,14 @@ function Dashboard() {
                     <i class="fas fa-shopping-cart"></i>
                   </div>
                 </div>
-                <div className="moreInfor d-flex">
-                  <p>Xem thêm</p>
-                  <p>
-                    <i className="fas fa-arrow-circle-right"></i>
-                  </p>
-                </div>
+                <Link to="/order">
+                  <div className="moreInfor d-flex">
+                    <p>Xem thêm</p>
+                    <p>
+                      <i className="fas fa-arrow-circle-right"></i>
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
             <div className="item-more-infor">
@@ -117,37 +127,41 @@ function Dashboard() {
                     <i className="fas fa-user-plus"></i>
                   </div>
                 </div>
-                <div className="moreInfor d-flex">
-                  <p>Xem thêm</p>
-                  <p>
-                    <i className="fas fa-arrow-circle-right"></i>
-                  </p>
-                </div>
+                <Link to="/users">
+                  <div className="moreInfor d-flex">
+                    <p>Xem thêm</p>
+                    <p>
+                      <i className="fas fa-arrow-circle-right"></i>
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
             <div className="item-more-infor">
               <div className="item-more-infor-small red">
                 <div className="inner d-flex">
                   <div className="inner-text col-7">
-                    <p>{VND.format(countRevenue)}</p>
+                    <p>{VND.format(totalRevenue)}</p>
                     <p>Doanh thu</p>
                   </div>
                   <div className="inner-icon">
                     <i class="fas fa-money-check-alt"></i>
                   </div>
                 </div>
-                <div className="moreInfor d-flex">
-                  <p>Xem thêm</p>
-                  <p>
-                    <i className="fas fa-arrow-circle-right"></i>
-                  </p>
-                </div>
+                <Link to="/Revenue">
+                  <div className="moreInfor d-flex">
+                    <p>Xem thêm</p>
+                    <p>
+                      <i className="fas fa-arrow-circle-right"></i>
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
           <RevenueColumnChart />
           <RevenuelLneChart />
-          <div className="Sale">
+          {/* <div className="Sale">
             <div className="Sale-header d-flex">
               <div className="Sale-header-title col-5 col-lg-7">
                 <p>
@@ -1386,7 +1400,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

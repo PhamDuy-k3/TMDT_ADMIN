@@ -18,6 +18,8 @@ import ChatRealTime from "../views/admin/index/chat/chat";
 import Revenue from "../views/admin/index/revenue/revenue";
 import CartOder from "../views/admin/index/order/order";
 import File from "../views/admin/index/file/file";
+import Voucher from "../views/admin/index/voucher/voucher";
+import ShippingFee from "../views/admin/index/shippingfee/shippingfee";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +71,24 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <ChatRealTime />,
+          },
+        ],
+      },
+      {
+        path: "/vouchers",
+        children: [
+          {
+            index: true,
+            element: <Voucher />,
+          },
+        ],
+      },
+      {
+        path: "/shippingfee",
+        children: [
+          {
+            index: true,
+            element: <ShippingFee />,
           },
         ],
       },

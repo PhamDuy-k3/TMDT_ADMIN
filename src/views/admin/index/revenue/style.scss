@@ -25,6 +25,7 @@
     
 }
 #revenue{
+   
     text-align: center;
     tbody{
         tr{
@@ -40,8 +41,6 @@
                     -webkit-line-clamp: 2; /* Số dòng bạn muốn hiển thị */
                     line-height: 1.2; /* Điều chỉnh độ cao của dòng */
                     max-height: 3em; /* Số dòng x độ cao của mỗi dòng */
-                    margin-bottom: 1rem;
-                    font-size: 1.1rem;
                 }
               
             }

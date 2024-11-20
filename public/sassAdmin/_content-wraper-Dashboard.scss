@@ -1,11 +1,10 @@
 .content-wraper{
-    height: 202rem;
     border-bottom: 1px solid $boderContent;
     .content-wraper-header{
         height: 5rem;
         padding: 1rem;
         padding-left: 1.2rem;
-        >h2{
+        >h4{
             font-weight: 400;
          }
          .content-wraper-header-cl2 {
@@ -37,7 +36,6 @@
 @media (min-width:1080px) { 
    .content-wraper{
         width: 100%;
-        height: 104rem;
         .content-wraper-header-cl2{
             margin-left: 40rem;
         }
