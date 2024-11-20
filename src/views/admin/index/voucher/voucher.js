@@ -11,6 +11,46 @@ const Voucher = () => {
   const [discountcodes, setDiscountcodes] = useState([]);
   const [cookies] = useCookies();
 
+  const currentTime = new Date();
+
+  const checkStatus = async () => {
+    const currentTime = new Date();
+
+    const discountcodesExpired = [];
+    const discountcodes_new = discountcodes.map((discountcode) => {
+      if (new Date(discountcode.expirationDate) < currentTime) {
+        discountcodesExpired.push(discountcode._id);
+        return { ...discountcode, status: "expired" };
+      }
+      return discountcode;
+    });
+
+    if (discountcodesExpired.length === 0) return;
+
+    setDiscountcodes(discountcodes_new);
+
+    try {
+      const response = await axios.put(
+        "http://localhost:5050/discountcode",
+        discountcodesExpired,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.user_token}`,
+          },
+        }
+      );
+      console.log("Cập nhật mã giảm giá hết hạn thành công:", response);
+    } catch (error) {
+      console.error("Lỗi khi cập nhật mã giảm giá:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkStatus();
+  }, [discountcodes]);
+
   const fetchUserVoucher = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5050/discountcode", {
@@ -103,7 +143,7 @@ const Voucher = () => {
                     <td>
                       {new Date(voucher.expirationDate).toLocaleDateString()}
                     </td>
-                    <td>
+                    <td style={voucher.status === "active" ?{color:'green'}:{color:'red'}}>
                       {voucher.status === "active"
                         ? "Đang hoạt động"
                         : "Hết hạn"}

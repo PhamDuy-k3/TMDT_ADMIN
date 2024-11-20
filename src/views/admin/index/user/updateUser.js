@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Form from "./element/Form";
+import { Link } from "react-router-dom";
 
 function UpdateUser() {
   const [title] = useState("Chỉnh sửa user");
@@ -9,9 +10,9 @@ function UpdateUser() {
       <div className="content-wraper-header d-lg-flex">
         <h4>Quản lý users</h4>
         <div className="d-flex content-wraper-header-cl2">
-          <a href="">
+          <Link href="">
             <p style={{ color: "#0A58CA" }}>Home</p>
-          </a>
+          </Link>
           <p>/</p>
           <p className="gray">Quản lý users</p>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,6 +30,7 @@ function User() {
       name: "",
       phone: "",
       gender: "",
+      level: "",
     },
   });
 
@@ -52,13 +53,21 @@ function User() {
 
   ///TÌM KIẾM USER
   const searchUser = (data) => {
-    if (data.gender !== "" || data.name !== "" || data.phone !== "") {
+    if (
+      data.gender !== "" ||
+      data.name !== "" ||
+      data.phone !== "" ||
+      data.level !== ""
+    ) {
       const genderLowercase = data.gender.toLowerCase();
       const genderValue =
-        genderLowercase === "nam" ? 1 : genderLowercase !== "" ? 2 : "";
+        genderLowercase === "nam" ? 1 : genderLowercase === "nữ" ? 2 : "";
 
+      const levelLowercase = data.level.toLowerCase();
+      const levelValue =
+        levelLowercase === "admin" ? 1 : levelLowercase === "user" ? 2 : "";
       fetch(
-        `http://localhost:5050/users?gender=${genderValue}&name=${data.name}&phone=${data.phone}&limit=${limit}`,
+        `http://localhost:5050/users?gender=${genderValue}&name=${data.name}&phone=${data.phone}&limit=${limit}&level=${levelValue}`,
         {
           method: "GET",
           headers: {
@@ -139,9 +148,9 @@ function User() {
         <div className="content-wraper-header d-lg-flex">
           <h4>Quản lý users</h4>
           <div className="d-flex content-wraper-header-cl2">
-            <a href="">
+            <Link href="">
               <p style={{ color: "#0A58CA" }}>Home</p>
-            </a>
+            </Link>
             <p>/</p>
             <p className="gray">Quản lý users</p>
           </div>
@@ -149,7 +158,7 @@ function User() {
         <hr style={{ width: "90%", margin: "auto", marginBottom: "1rem" }}></hr>
         <ToastContainer
           position="top-right"
-          autoClose={1000}
+          autoClose={500}
           hideProgressBar={false}
           newestOnTop={true}
           closeOnClick
@@ -200,6 +209,18 @@ function User() {
                   />
                   <label for="input-field" class="input-label">
                     Giới tính
+                  </label>
+                  <span class="input-highlight"></span>
+                </div>
+                <div class="input-container">
+                  <input
+                    placeholder="Quyền"
+                    class="input-field"
+                    type="text"
+                    {...register("level")}
+                  />
+                  <label for="input-field" class="input-label">
+                    Quyền
                   </label>
                   <span class="input-highlight"></span>
                 </div>

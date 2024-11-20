@@ -134,7 +134,7 @@ function CartOder() {
                               <p>{product.size}</p>
                             </td>
                             <td className="text-center">{product.quantity}</td>
-                            <td className="text-center">
+                            <td style={{color:'red'}} className="text-center">
                               {VND.format(product.sum)}
                             </td>
                           </tr>

@@ -103,6 +103,7 @@ const ChatRealTime = () => {
       console.error("Lỗi khi tạo phòng chat:", error);
     }
   };
+  
   const createMessInRoomChat = async () => {
     let data = {};
     data.content = message;
@@ -201,6 +202,7 @@ const ChatRealTime = () => {
       {user.name}
     </p>
   ));
+
   const messagesList = messages.map((msg, index) => (
     <div key={index} className={`message ${msg.sender}`}>
       {msg.type === "image" ? (

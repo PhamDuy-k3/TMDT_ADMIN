@@ -73,8 +73,8 @@ const ShippingFee = () => {
               <tr>
                 <th>Loại Vận Chuyển</th>
                 <th>Phí Vận Chuyển</th>
-                <th>Mô Tả</th>
                 <th>Thời Gian Giao Hàng</th>
+                <th>Mô Tả</th>
                 <th>Hành Động</th>
               </tr>
             </thead>
@@ -90,8 +90,8 @@ const ShippingFee = () => {
                   <tr key={fee._id}>
                     <td>{fee.type}</td>
                     <td>{fee.fee} VND</td>
-                    <td>{fee.description}</td>
                     <td>{fee.deliveryTime}</td>
+                    <td>{fee.description}</td>
                     <td>
                       <FaEdit
                         className="icon_action"

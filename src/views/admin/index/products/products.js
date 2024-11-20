@@ -8,6 +8,7 @@ import {
   FaPenNib,
   FaLock,
   FaLockOpen,
+  FaInfoCircle,
 } from "react-icons/fa";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -158,6 +159,7 @@ function Products() {
       setListProductsSearch([]);
     }
   };
+
   const actionHide = async (data, id_product, boolean, txt) => {
     const response = await axios.put(
       `http://localhost:5050/Products/isVisible/${id_product}`,
@@ -172,36 +174,38 @@ function Products() {
     );
     if (response.data.status_code === 200) {
       toast.success(`${txt} sản phẩm thành công!`);
-      setListProductsSearch(
-        listProductsSearch.map((product) => {
-          if (product._id === id_product) {
-            product.isVisible = boolean;
-          }
-          return product;
-        })
+      setListProductsSearch((prevList) =>
+        prevList.map((product) =>
+          product._id === id_product
+            ? { ...product, isVisible: boolean }
+            : product
+        )
       );
-      setListProducts(
-        listProducts.map((product) => {
-          if (product._id === id_product) {
-            product.isVisible = boolean;
-          }
-          return product;
-        })
+
+      setListProducts((prevList) =>
+        prevList.map((product) =>
+          product._id === id_product
+            ? { ...product, isVisible: boolean }
+            : product
+        )
       );
     }
   };
+
   const hideProduct = async (id_product) => {
     const data = {
       isVisible: true,
     };
     actionHide(data, id_product, true, "Hiển thị");
   };
+
   const hiddenProduct = (id_product) => {
     const data = {
       isVisible: false,
     };
     actionHide(data, id_product, false, "Ẩn");
   };
+
   const dsProducts = (
     listProductsSearch.length > 0 ? listProductsSearch : listProducts
   ).map((item, index) => (
@@ -228,6 +232,10 @@ function Products() {
           className="icon_action"
           style={{ color: "green", marginLeft: "1rem" }}
           onClick={() => openModal(item._id)}
+        />
+        <FaInfoCircle
+          className="icon_action"
+          style={{ color: "green", marginLeft: "1rem" }}
         />
         {item.isVisible ? (
           <FaLockOpen
@@ -315,7 +323,7 @@ function Products() {
             {showModal && (
               <div className="modal-variant">
                 <div className="modal-content">
-                  <h3>Thêm thông tin cho sản phẩm</h3>
+                  <h5>Thêm thông tin cho sản phẩm</h5>
 
                   <label>
                     Màu
@@ -359,9 +367,10 @@ function Products() {
                       onChange={(e) => setQuantity(e.target.value)}
                     />
                   </label>
-
-                  <button onClick={handleAdd}>Thêm</button>
-                  <button onClick={closeModal}>Đóng</button>
+                  <div>
+                    <button onClick={closeModal}>Đóng</button>
+                    <button onClick={handleAdd}>Thêm</button>
+                  </div>
                 </div>
               </div>
             )}
