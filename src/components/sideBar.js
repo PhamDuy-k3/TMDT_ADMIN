@@ -86,10 +86,7 @@ function SideBar() {
                     <NavLink to="/users" end>
                       <p>
                         <i className="far fa-circle"></i>
-                        <span className="hidenText">
-                          {" "}
-                          Danh sách người dùng{" "}
-                        </span>
+                        <span className="hidenText">Danh sách người dùng </span>
                       </p>
                     </NavLink>
                   </li>

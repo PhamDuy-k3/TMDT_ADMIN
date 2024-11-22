@@ -61,10 +61,6 @@
         height: 25rem;
         width: 100%;
         margin-top: 1rem;
-        .accordion-item:first-of-type .accordion-button {
-            background-color: #007BFF;
-            color: white !important;
-        }
         .accordion-item{
             border: 1px solid #343A40;
             .accordion-header{
@@ -75,6 +71,10 @@
                 }
                 .accordion-button::after{
                     color: white !important;
+                }
+                .accordion-button:focus{
+                    outline: none;
+                    border: 1px solid #eee;
                 }
             }
         }
@@ -89,8 +89,13 @@
                         color: white;
                     }
                     a.active{
-                        background-color: rgb(240, 57, 57) !important ;
-                        color: red;
+                        p{
+                            span{
+                              
+                                color: #0D6EFD;
+                            }
+                        }
+                       
                     }
                     p{
                         width: 13rem;

@@ -6,7 +6,6 @@ import { useCookies } from "react-cookie";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const File = ({ idOder }) => {
-  // const [carts, setCarts] = useState([]);
   const [res, setRes] = useState([]);
   const [cookies] = useCookies();
   const fetchCartsOder = async () => {
@@ -24,7 +23,6 @@ const File = ({ idOder }) => {
       );
       const data = await response.json();
       setRes(data.data);
-      // setCarts(data.data[0]?.carts || []);
     } catch (error) {
       console.error("Error fetching API:", error);
     }
@@ -60,7 +58,7 @@ const File = ({ idOder }) => {
 
         {
           // Tổng cộng
-          text: `Tổng cộng: ${res?.total_prices} VND`,
+          text: `Tổng cộng: ${res?.orderTotal} VND`,
           fontSize: 12,
           alignment: "right",
         },
@@ -73,10 +71,10 @@ const File = ({ idOder }) => {
 
   return (
     <>
-      <button onClick={generatePDF} class="Documents-btn">
-        <span class="folderContainer">
+      <button onClick={generatePDF} className=" mx-2 Documents-btn">
+        <span className="folderContainer">
           <svg
-            class="fileBack"
+            className="fileBack"
             width="146"
             height="113"
             viewBox="0 0 146 113"
@@ -102,7 +100,7 @@ const File = ({ idOder }) => {
             </defs>
           </svg>
           <svg
-            class="filePage"
+            className="filePage"
             width="88"
             height="99"
             viewBox="0 0 88 99"
@@ -130,7 +128,7 @@ const File = ({ idOder }) => {
           </svg>
 
           <svg
-            class="fileFront"
+            className="fileFront"
             width="160"
             height="79"
             viewBox="0 0 160 79"

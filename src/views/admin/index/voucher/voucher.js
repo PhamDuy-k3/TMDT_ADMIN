@@ -113,12 +113,14 @@ const Voucher = () => {
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th>Mã Giảm Giá</th>
-                <th>Tên Cửa Hàng</th>
-                <th>Giá Trị Giảm</th>
-                <th>Ngày Hết Hạn</th>
-                <th>Trạng Thái</th>
-                <th>Hành Động</th>
+                <th>Mã giảm giá</th>
+                <th>Số lượng</th>
+                <th>Giới hạn sử dụng</th>
+                <th>Giá trị giảm</th>
+                <th>Giá trị tối thiểu đơn hàng</th>
+                <th>Ngày hết hạn</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +134,8 @@ const Voucher = () => {
                 discountcodes.map((voucher) => (
                   <tr key={voucher._id}>
                     <td>{voucher.code}</td>
-                    <td>{voucher.shopName}</td>
+                    <td>{voucher.stock}</td>
+                    <td>{voucher.usageLimit}</td>
                     <td>
                       {voucher.maxShippingFreeDiscount
                         ? VND_currency.format(voucher.maxShippingFreeDiscount)
@@ -140,10 +143,17 @@ const Voucher = () => {
                         ? `${voucher.discountValue}%`
                         : VND_currency.format(voucher.discountValue * 1000)}
                     </td>
+                    <td>{VND_currency.format(voucher.minOrderValue)}</td>
                     <td>
                       {new Date(voucher.expirationDate).toLocaleDateString()}
                     </td>
-                    <td style={voucher.status === "active" ?{color:'green'}:{color:'red'}}>
+                    <td
+                      style={
+                        voucher.status === "active"
+                          ? { color: "green" }
+                          : { color: "red" }
+                      }
+                    >
                       {voucher.status === "active"
                         ? "Đang hoạt động"
                         : "Hết hạn"}

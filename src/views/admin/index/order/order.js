@@ -76,9 +76,10 @@ function CartOder() {
   const handelOderCf = (cartOderId, newStatus) => {
     const dataUpdateStatus = {
       status: newStatus,
+      paymentStatus: "paid",
     };
     if (newStatus === "delivered") {
-      dataUpdateStatus.confirmedAt = new Date().toISOString(); // Lưu theo định dạng ISO
+      dataUpdateStatus.confirmedAt = new Date().toISOString();
     }
     UpdateStatusCartOrder(cartOderId, dataUpdateStatus);
   };
@@ -134,7 +135,10 @@ function CartOder() {
                               <p>{product.size}</p>
                             </td>
                             <td className="text-center">{product.quantity}</td>
-                            <td style={{color:'red'}} className="text-center">
+                            <td
+                              style={{ color: "red" }}
+                              className="text-center"
+                            >
                               {VND.format(product.sum)}
                             </td>
                           </tr>
@@ -155,7 +159,7 @@ function CartOder() {
                             onClick={() => handelOderCf(item._id, "processing")}
                             style={{
                               marginLeft: "8px",
-                              backgroundColor: "#FFA500", // Màu cam cho nút xử lý
+                              backgroundColor: "#FFA500",
                               color: "white",
                             }}
                           >
@@ -167,7 +171,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "canceled")}
                             style={{
-                              backgroundColor: "#FF4C4C", // Màu đỏ sáng cho nút hủy
+                              backgroundColor: "#FF4C4C",
                               color: "white",
                             }}
                           >
@@ -176,7 +180,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "shipped")}
                             style={{
-                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút giao hàng
+                              backgroundColor: "#4CAF50",
                               color: "white",
                               marginLeft: "8px",
                             }}
@@ -189,7 +193,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "delivered")}
                             style={{
-                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút đã giao
+                              backgroundColor: "#4CAF50",
                               color: "white",
                             }}
                           >
@@ -198,7 +202,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "returned")}
                             style={{
-                              backgroundColor: "#FFA500", // Màu cam cho nút trả hàng
+                              backgroundColor: "#FFA500",
                               color: "white",
                               marginLeft: "8px",
                             }}
@@ -214,19 +218,19 @@ function CartOder() {
                           >
                             <button
                               style={{
-                                backgroundColor: "#4CAF50", // Màu xanh lá cho nút hoàn thành
+                                backgroundColor: "#4CAF50",
                                 color: "white",
                               }}
                             >
                               Hoàn thành
                             </button>
-                            <File idOder={item._id} />
+                            <File  idOder={item._id} />
                           </div>
                         </>
                       ) : item.status === "canceled" ? (
                         <button
                           style={{
-                            backgroundColor: "#FF4C4C", // Màu đỏ sáng cho trạng thái đã hủy
+                            backgroundColor: "#FF4C4C",
                             color: "white",
                           }}
                         >
@@ -235,7 +239,7 @@ function CartOder() {
                       ) : item.status === "returned" ? (
                         <button
                           style={{
-                            backgroundColor: "#FFA500", // Màu cam cho trạng thái đã trả hàng
+                            backgroundColor: "#FFA500",
                             color: "white",
                           }}
                         >
@@ -246,7 +250,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "confirmed")}
                             style={{
-                              backgroundColor: "#4CAF50", // Màu xanh lá cho nút xác nhận
+                              backgroundColor: "#4CAF50",
                               color: "white",
                             }}
                           >
@@ -255,7 +259,7 @@ function CartOder() {
                           <button
                             onClick={() => handelOderCf(item._id, "canceled")}
                             style={{
-                              backgroundColor: "#FF4C4C", // Màu đỏ sáng cho nút hủy
+                              backgroundColor: "#FF4C4C",
                               color: "white",
                               marginLeft: "8px",
                             }}
