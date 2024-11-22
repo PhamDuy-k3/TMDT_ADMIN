@@ -20,6 +20,7 @@ import CartOder from "../views/admin/index/order/order";
 import File from "../views/admin/index/file/file";
 import Voucher from "../views/admin/index/voucher/voucher";
 import ShippingFee from "../views/admin/index/shippingfee/shippingfee";
+import ProductDetail from "../views/admin/index/products/productDetail";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Products />,
+          },
+          {
+            path: "/products/detail/:productId",
+            element: <ProductDetail />,
           },
           {
             path: "/products/create",

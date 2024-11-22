@@ -1,12 +1,13 @@
 .footer{
     background-color: #FFFFFF;
-    margin-top: 1rem;
     width: 100%;
     padding-left: 1rem;
     position: fixed;
+    padding-top: 0.6rem;
     bottom: 0;
     z-index: 10;
-    border: 1px solid #eee;
+    border: 1px solid hsl(0, 0%, 93%);
+    font-size: 0.8rem;
     p:last-child{
         margin-left: 10rem;
         display: none;
@@ -15,7 +16,6 @@
 @media (min-width:1080px) { 
     .footer{
         background-color: #FFFFFF;
-        margin-top: 1rem;
         padding-left: 17rem;
         p:last-child{
             margin-left: 30rem;

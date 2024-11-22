@@ -75,3 +75,28 @@
     }
   }
 }
+#product-detail{
+  padding: 2rem;
+ 
+    i{
+      font-size: 1.5rem;
+      margin: 1rem 0rem;
+      color: #007BFF;
+    }
+    .table-products{
+        tbody{
+          tr{
+            td:first-child{
+              width: 15rem;
+            }
+          }
+        }
+    }
+}
+#variant-product{
+  font-size: 0.8rem;
+  input , select{
+  font-size: 0.8rem;
+    
+  }
+}

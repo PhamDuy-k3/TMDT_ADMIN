@@ -18,6 +18,7 @@ import ExportExcel from "../../../../components/xlsx/xlsx";
 import "..//..//sassAdmin/_user.scss";
 import "./style.scss";
 import axios from "axios";
+import { VND_currency } from "../../../../components/vnd";
 
 function Products() {
   const [listProducts, setListProducts] = useState([]);
@@ -25,10 +26,7 @@ function Products() {
   const [Product, setProduct] = useState();
   const [cookies, setCookie] = useCookies();
   const [limit, setLimit] = useState(20);
-  const [showModal, setShowModal] = useState(false);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
-  const [quantity, setQuantity] = useState(0);
+
   const [id_product, setIdProduct] = useState(0);
   const {
     register,
@@ -43,49 +41,7 @@ function Products() {
       prices: "",
     },
   });
-  const colors = ["Màu Trắng", "Màu Xanh", "Màu Nâu", "Màu Vàng"];
-  const sizes = ["S", "M", "L", "XL", "XXL"];
-  const closeModal = () => setShowModal(false);
 
-  const openModal = (id_product) => {
-    setIdProduct(id_product);
-    setShowModal(true);
-  };
-
-  const createVariant = async (data) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5050/variants",
-        data,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + cookies.admin_token,
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Tạo mới thành công!");
-        setSize("");
-        setQuantity(0);
-        setColor("");
-      }
-    } catch (error) {
-      toast.error("Có lỗi xảy ra trong quá trình tạo mới.");
-    }
-  };
-
-  const handleAdd = () => {
-    if (!id_product && !color) return;
-    const data = {
-      product_id: id_product,
-      color,
-      size,
-      quantity,
-    };
-    createVariant(data);
-  };
   ///DANH SÁCH Products
   useEffect(() => {
     fetch(`http://localhost:5050/products/admin?limit=${limit}`, {
@@ -216,7 +172,7 @@ function Products() {
       </td>
       <td>{item.name}</td>
 
-      <td>{item.prices}</td>
+      <td>{VND_currency.format(item.prices)}</td>
       <td>{item.discount}</td>
       <td>{item.stock}</td>
       <td>
@@ -228,15 +184,18 @@ function Products() {
           style={{ color: "red", marginLeft: "1rem" }}
           onClick={() => deleteProducts(item._id)}
         />
-        <FaPenNib
+        {/* <FaPenNib
           className="icon_action"
           style={{ color: "green", marginLeft: "1rem" }}
           onClick={() => openModal(item._id)}
-        />
-        <FaInfoCircle
-          className="icon_action"
-          style={{ color: "green", marginLeft: "1rem" }}
-        />
+        /> */}
+        <Link to={`/products/detail/${item._id}`}>
+          <FaInfoCircle
+            className="icon_action"
+            style={{ color: "green", marginLeft: "1rem" }}
+          />
+        </Link>
+
         {item.isVisible ? (
           <FaLockOpen
             className="icon_action"
@@ -320,60 +279,7 @@ function Products() {
                 </button>
               </div>
             </form>
-            {showModal && (
-              <div className="modal-variant">
-                <div className="modal-content">
-                  <h5>Thêm thông tin cho sản phẩm</h5>
 
-                  <label>
-                    Màu
-                    <select
-                      value={color}
-                      onChange={(e) => setColor(e.target.value)}
-                    >
-                      <option disabled value="">
-                        Chọn màu
-                      </option>
-                      {colors.map((col, index) => (
-                        <option key={index} value={col}>
-                          {col}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <label>
-                    Size
-                    <select
-                      value={size}
-                      onChange={(e) => setSize(e.target.value)}
-                    >
-                      <option disabled value="">
-                        Chọn size
-                      </option>
-                      {sizes.map((sz, index) => (
-                        <option key={index} value={sz}>
-                          {sz}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <label>
-                    Số lượng:
-                    <input
-                      type="number"
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                  </label>
-                  <div>
-                    <button onClick={closeModal}>Đóng</button>
-                    <button onClick={handleAdd}>Thêm</button>
-                  </div>
-                </div>
-              </div>
-            )}
             <div>
               <Table
                 className="mt-4 table_product"
