@@ -22,8 +22,10 @@ const ProductDetail = () => {
   });
   const product_id = useParams();
   const [showModelAddVariant, setShowModelAddVariant] = useState(false);
+
   const fetchProducts = async () => {
     try {
+      if (!product_id) return;
       const response = await axios.get(
         `http://localhost:5050/products/${product_id.productId}`,
         {
@@ -34,8 +36,8 @@ const ProductDetail = () => {
           },
         }
       );
-      if (response.status === 200) {
-        setProduct(response.data.data); // Lấy danh sách sản phẩm
+      if (response.status === 200 || response.status === 201) {
+        setProduct(response.data.data);
         getVariants();
       }
     } catch (error) {
@@ -91,6 +93,7 @@ const ProductDetail = () => {
       toast.error("Có lỗi xảy ra trong quá trình xử lý.");
     }
   };
+  console.log(product);
   return (
     <div
       style={{ minHeight: "0", height: "auto" }}

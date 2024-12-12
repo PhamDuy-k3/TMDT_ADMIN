@@ -56,7 +56,7 @@ const RevenuelLneChart = () => {
       const confirmedAt = new Date(order.confirmedAt);
       const month = confirmedAt.getMonth();
       console.log(month);
-      revenueByMonth[month] += order.total_prices;
+      revenueByMonth[month] += order.orderTotal;
     });
 
     setMonthlyRevenue(revenueByMonth);

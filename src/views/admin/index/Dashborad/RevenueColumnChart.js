@@ -52,7 +52,7 @@ const RevenueColumnChart = () => {
     orders.forEach((order) => {
       const confirmedAt = new Date(order.confirmedAt);
       const month = confirmedAt.getMonth(); // Lấy tháng từ 0 đến 11
-      revenueByMonth[month] += order.total_prices; // lấy tháng làm chỉ số index
+      revenueByMonth[month] += order.orderTotal; // lấy tháng làm chỉ số index
     });
 
     setMonthlyRevenue(revenueByMonth);
