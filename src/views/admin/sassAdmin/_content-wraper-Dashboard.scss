@@ -1,5 +1,6 @@
 .content-wraper{
     border-bottom: 1px solid $boderContent;
+    position: relative;
     .content-wraper-header{
         height: 5rem;
         padding: 1rem;
@@ -34,9 +35,6 @@
 @media (min-width:1080px) { 
    .content-wraper{
         width: 100%;
-        .content-wraper-header-cl2{
-            margin-left: 40rem;
-        }
         .all-content-con{
             font-size: 1rem;
             width: 45%;

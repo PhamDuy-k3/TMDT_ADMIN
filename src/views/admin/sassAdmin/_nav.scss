@@ -1,5 +1,6 @@
 nav{
     height: 3.5rem;
+    position: relative;
     .navbar-two ,.navbar-one {
         padding: 1rem;
         color: rgb(126, 128, 128);
@@ -140,9 +141,7 @@ nav{
 
 @media (min-width:1080px) { 
         nav{
-            .navbar-two {
-                margin-left:33rem;
-            }
+            
             .navbar-one{
                 .display-hidden{
                     p{

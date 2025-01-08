@@ -45,7 +45,7 @@ function IndexAdmin() {
   }, []);
 
   return (
-    <>
+    <div id="box-index-style">
       <ToastContainer
         position="top-right"
         autoClose={1000}
@@ -68,8 +68,7 @@ function IndexAdmin() {
         <Outlet />
       </div>
       <div className="fly-box"></div>
-      <Footer />
-    </>
+    </div>
   );
 }
 export default IndexAdmin;
